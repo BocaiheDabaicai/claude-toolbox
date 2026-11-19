@@ -1,0 +1,59 @@
+/* ==========================================================
+   品牌配色规范 —— 主题「奶白 × 湖水蓝 × 薄荷绿」
+   适用：会员商城、返利、收银等移动端 H5（清新、健康、自然）。
+
+   使用方式：
+   1. 优先使用 Tailwind 语义类（bg-primary、text-accent 等），
+      这些类已由 src/style.css 的 @theme 映射到下方变量；
+   2. 自定义样式引用 var(--brand-*)；
+   3. 新增颜色必须在此文件登记，禁止在组件里随意写色值；
+   4. 调整主题只需修改本文件。
+
+   oklch 为主色值，hex 为参考值（供设计工具取色）。
+   ========================================================== */
+
+:root {
+  /* —— 主色 湖水蓝：按钮、链接、选中态、重点区域 —— */
+  --brand-primary: oklch(60% 0.1 235);              /* ≈ #4E96D6 */
+  --brand-primary-content: oklch(99% 0 0);          /* 主色上的文字 ≈ #FFFFFF */
+
+  /* —— 次色 薄荷绿：健康自然、渐变搭档、有机/成功标识 —— */
+  --brand-secondary: oklch(78% 0.1 180);            /* ≈ #7ED8BB */
+  --brand-secondary-content: oklch(28% 0.05 180);   /* 次色上的文字 ≈ #1F4D43 */
+
+  /* —— 强调 深湖水蓝：价格、返利金额、重要数字 —— */
+  --brand-accent: oklch(50% 0.09 250);              /* ≈ #2E6EAD */
+  --brand-accent-content: oklch(99% 0 0);           /* 强调色上的文字 ≈ #FFFFFF */
+
+  /* —— 底色：页面与卡片 —— */
+  --brand-base-100: oklch(100% 0 0);                /* 纯白：卡片、弹层 ≈ #FFFFFF */
+  --brand-base-200: oklch(97.8% 0.007 230);         /* 奶蓝白：页面底 ≈ #F6FAFD */
+  --brand-base-300: oklch(92.5% 0.014 235);         /* 浅蓝灰：边框、分割线 ≈ #E4EDF5 */
+  --brand-base-content: oklch(32% 0.035 252);       /* 正文文字 ≈ #2A3B57 */
+
+  /* —— 中性色 —— */
+  --brand-neutral: oklch(40% 0.04 250);             /* ≈ #3D5A7F */
+  --brand-neutral-content: oklch(96% 0.008 230);    /* ≈ #EFF6FC */
+
+  /* —— 功能色 —— */
+  --brand-info: oklch(65% 0.09 230);                /* ≈ #5B9ED9 */
+  --brand-info-content: oklch(98% 0.005 230);
+  --brand-success: oklch(62% 0.11 165);             /* 健康绿 ≈ #3FA97D */
+  --brand-success-content: oklch(98% 0.01 165);
+  --brand-warning: oklch(78% 0.11 85);              /* ≈ #D9A84E */
+  --brand-warning-content: oklch(25% 0.04 85);
+  --brand-error: oklch(58% 0.17 25);                /* ≈ #C9503C */
+  --brand-error-content: oklch(97% 0.01 25);
+
+  /* —— 浅色语义底：标签、选中态、提示（避免依赖 color-mix 的透明度兜底） —— */
+  --brand-primary-soft: oklch(95% 0.025 235);       /* ≈ #E8F3FD */
+  --brand-success-soft: oklch(94% 0.035 165);       /* 浅薄荷 */
+  --brand-warning-soft: oklch(96% 0.045 85);        /* 浅琥珀 */
+  --brand-error-soft: oklch(95% 0.035 25);          /* 浅珊瑚 */
+
+  /* —— 品牌渐变 —— */
+  --brand-gradient: linear-gradient(135deg, #5fa8ec 0%, #6cc7a8 100%);
+    /* 天空蓝 → 薄荷绿：logo、重点强调块 */
+  --brand-gradient-air: linear-gradient(135deg, #e8f4fe 0%, #ffffff 50%, #e9f9f2 100%);
+    /* 空气感浅渐变：欢迎区、分区底色 */
+}

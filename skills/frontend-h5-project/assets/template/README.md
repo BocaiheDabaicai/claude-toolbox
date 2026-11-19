@@ -1,0 +1,41 @@
+# __PROJECT_TITLE__
+
+基于 Vue 3 + Vite 8 的移动端 H5 项目骨架。
+
+## 技术栈
+
+Vue 3.5 · Vite 8 · vue-router 5（hash）· Pinia 4 · Tailwind CSS 4 · daisyUI 5 · axios · big.js
+
+## 快速开始
+
+```bash
+pnpm install
+pnpm dev
+pnpm build
+```
+
+环境要求：Node 20.19+ / 22.12+，pnpm 9.15.9。安装规则见 [AGENTS.md](AGENTS.md)。
+
+## 目录结构
+
+```
+src/
+├─ api/          # 接口函数，按业务模块拆分
+├─ assets/       # 图片与品牌色变量
+├─ components/   # 通用组件
+├─ layouts/      # 页面容器
+├─ router/       # 路由表与守卫
+├─ stores/       # Pinia 状态
+├─ utils/        # 请求、登录态、金额、日期、提示等
+└─ views/        # 页面
+```
+
+## 接入步骤
+
+1. 在 `.env.development` / `.env.production` 配置 `VITE_APP_BASE_API`。
+2. 在 `src/utils/request.js` 按目标后端调整响应结构与请求头。
+3. 在 `src/stores/user.js` 实现登录、用户信息与退出。
+4. 在 `src/router/routes.js` 登记页面，在 `views/` 替换占位页。
+5. 运行 `pnpm build`，确认 `pnpm-lock.yaml` 无非预期改动。
+
+模板内的 DEV 演示登录只用于预览页面骨架，接入真实接口后请移除。
