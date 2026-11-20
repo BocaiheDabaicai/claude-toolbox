@@ -18,3 +18,11 @@ Thumbs.db
 .idea/
 .vscode/
 *.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.egg-info/
+.uv/

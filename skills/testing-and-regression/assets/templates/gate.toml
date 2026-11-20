@@ -1,0 +1,42 @@
+# 发布回归门禁：python scripts/gate.py --config gate.toml
+# 命令来自本地可信配置；不要拼接外部输入。
+
+[project]
+name = "__PROJECT_NAME__"
+report = "docs/regression-report.md"
+
+[[checks]]
+name = "frontend-build"
+type = "command"
+command = "pnpm build"
+cwd = "apps/web"
+timeout = 600
+expect_exit = 0
+
+[[checks]]
+name = "backend-tests"
+type = "command"
+command = "uv run pytest"
+cwd = "services/api"
+timeout = 300
+
+[[checks]]
+name = "api-health"
+type = "http"
+url = "http://127.0.0.1:8000/api/healthz"
+expect_status = 200
+timeout = 5
+
+[[checks]]
+name = "api-ready"
+type = "http"
+url = "http://127.0.0.1:8000/api/readyz"
+expect_status = 200
+timeout = 10
+
+# 根据项目实际情况启用：
+# [[checks]]
+# name = "env-file"
+# type = "file"
+# path = "services/api/.env"
+# must_exist = true

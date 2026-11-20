@@ -1,0 +1,4 @@
+id,name,phone,email,company,status
+1,张明,13800000001,ZhangMing@Example.com,远山科技,ACTIVE
+2,李静,138-0000-0002,,青禾贸易,ACTIVE
+3,王强,,,恒信物流,INACTIVE

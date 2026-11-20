@@ -1,0 +1,44 @@
+{
+  "name": "__PROJECT_NAME__",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": "^22.19.0 || ^24.11.0 || >=26.0.0",
+    "pnpm": ">=9 <10"
+  },
+  "scripts": {
+    "preinstall": "node scripts/check-env.mjs",
+    "postinstall": "nuxt prepare",
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "start": "node .output/server/index.mjs",
+    "preview": "node .output/server/index.mjs",
+    "typecheck": "nuxt typecheck",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx scripts/seed.ts",
+    "check:boundary": "node scripts/check-boundary.mjs",
+    "check": "pnpm check:boundary && pnpm typecheck"
+  },
+  "dependencies": {
+    "@fontsource-variable/noto-sans-sc": "^5.3.1",
+    "@tailwindcss/vite": "^4.3.5",
+    "daisyui": "5.7.28",
+    "dotenv": "^18.0.10",
+    "drizzle-kit": "^0.31.11",
+    "drizzle-orm": "^0.45.4",
+    "nuxt": "4.5.2",
+    "pg": "^8.23.1",
+    "tailwindcss": "^4.3.5",
+    "tsx": "^4.23.15",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@types/pg": "^8.23.1",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.3.14"
+  }
+}

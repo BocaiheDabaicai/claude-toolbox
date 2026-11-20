@@ -6,8 +6,11 @@
 
 | 组件 | 作用 | 关键接口 |
 | --- | --- | --- |
-| `layouts/DefaultLayout.vue` | `max-w-md` 页面容器 + 路由过渡 | 读取 `meta.hideBottomNav` / `meta.fullHeight` |
-| `PageHeader.vue` | 二级页顶栏：返回 + 标题 + 首页 | `title`、`showHome`、`meta.backTo` |
+| `layouts/DefaultLayout.vue` | H5 `max-w-md` 页面容器 + 路由过渡 | 读取 `meta.hideBottomNav` / `meta.fullHeight` |
+| `layouts/AdminLayout.vue` | 管理台侧边栏 + 顶栏 + `max-w-7xl` | 内部导航数组、移动端抽屉、退出登录 |
+| `layouts/PcLayout.vue` | PC 顶部导航 + 宽内容区 + 页脚 | 顶部导航数组 |
+| `PageHeader.vue` | H5 二级页顶栏：返回 + 标题 + 首页 | `title`、`showHome`、`meta.backTo` |
+| `AdminPageHeader.vue` | 后台页头：标题 + 描述 + 操作区 | `title`、`description`、`#actions` |
 | `BottomNav.vue` | 4 tab 悬浮底栏 | `activeName`、`badges` |
 | `ToastHost.vue` | 全局轻提示挂载点 | 配合 `utils/toast.js` |
 | `ConfirmDialog.vue` | 全局二次确认挂载点 | 配合 `utils/confirm.js` |

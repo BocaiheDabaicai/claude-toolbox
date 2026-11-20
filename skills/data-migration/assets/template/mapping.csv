@@ -1,0 +1,7 @@
+target_column,source_column,target_type,required,default,transform
+legacy_id,id,bigint,true,,trim
+name,name,text,true,,trim
+phone,phone,text,false,,digits
+email,email,text,false,,lower
+company,company,text,false,,trim
+status,status,text,true,active,map_status

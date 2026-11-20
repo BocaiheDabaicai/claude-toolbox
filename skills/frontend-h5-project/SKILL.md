@@ -1,24 +1,37 @@
 ---
 name: frontend-h5-project
-description: 当用户要求“新建前端项目”“搭建 Vue3 H5 工程”“迁移 uni-app/Vue2 到 Vue3”“参考 salebate-vue3 或 fuintMemberH5”“生成会员端 H5”“沉淀前端项目规范”，或需要一个可复用的 Vue 3 + Vite + Tailwind + Pinia H5 项目骨架时使用。覆盖项目生成、旧项目迁移、架构设计、UI 设计系统、通用组件与函数、接口契约和质量门禁。
-version: 0.1.0
+description: 当用户要求“新建前端项目”“搭建 Vue3 H5 工程”“做管理后台”“做 PC 网站”“H5 / 管理台 / PC 三端”“后台列表表单”“迁移 uni-app/Vue2 到 Vue3”“参考 salebate-vue3 或 fuintMemberH5”“生成会员端 H5”“沉淀前端项目规范”，或需要一个可复用的 Vue 3 + Vite + Tailwind + Pinia 前端项目骨架时使用。覆盖 H5 / 管理后台 / PC 三种布局、项目生成、旧项目迁移、架构设计、UI 设计系统、通用组件与函数、接口契约和质量门禁。
+version: 0.2.0
 ---
 
-# 前端 H5 项目生成 / 迁移
+# 前端 H5 / 管理后台 / PC 项目生成与迁移
 
 ## 目标
 
-用一套已在真实项目验证过的 Vue 3 H5 架构，生成新项目或迁移旧项目。产出应具备：清晰的目录结构、统一的请求层与登录态、品牌化 UI、可复用组件、移动端体验、可交接的文档与质量门禁。
+用一套已在真实项目验证过的 Vue 3 + Vite 架构，生成新项目或迁移旧项目，并覆盖三种界面形态：移动端 H5、管理后台、PC 站点。产出应具备：清晰的目录结构、统一的请求层与登录态、品牌化 UI、可复用组件、可交接的文档与质量门禁。
 
 ## 何时使用
 
 - 新建 Vue 3 + Vite 的移动端 H5 项目；
+- 新建管理后台，需要列表、筛选、分页、表单、弹窗等后台模式；
+- 新建 PC 站点，需要顶部导航、宽内容区和响应式布局；
+- 同一项目需要 H5 / 管理台 / PC 多种界面形态，并共用设计令牌；
 - 把 Vue2 / uni-app / HBuilderX / uview 项目迁移到 H5；
 - 要求与 `salebate-vue3`、`fuintMemberH5` 架构保持一致；
 - 需要沉淀团队的前端项目规范、组件库、通用函数与迁移流程；
 - 需要搭建会员商城、返利、收银等电商类 H5 骨架。
 
-不适用：单页面小改动、纯样式/文案调整、纯后端开发。
+不适用：单页面小改动、纯样式/文案调整、纯后端开发；需要前后端聚合、直连数据库 → 用 `nuxt-fullstack`。
+
+## 三种界面形态
+
+| 形态 | 布局 | 路由组 | 典型页面 |
+| --- | --- | --- | --- |
+| H5 会员端 | `DefaultLayout` + 底部导航 | `/` | 商城、返利、收银、订单 |
+| 管理后台 | `AdminLayout`（侧边栏 + 顶栏 + `max-w-7xl`） | `/admin` | 仪表盘、列表、表单、导入导出 |
+| PC 站点 | `PcLayout`（顶部导航 + 宽内容区） | `/site` | 官网、内容页、宽屏业务 |
+
+三种形态共用 `colors.css`、字体、动效和基础交互；布局、导航和密度按形态调整，不维护第二套主题。
 
 ## 两种模式
 
@@ -47,7 +60,8 @@ version: 0.1.0
 - 参考项目路径（默认本 Skill 的模板即可，除非用户指定）；
 - 后端环境、接口前缀、证书/域名限制；
 - 迁移范围：哪些页面必须做，哪些不做；
-- 是否保留多端（本 Skill 默认只做 H5）；
+- 界面形态：只做 H5、只做管理台、只做 PC，还是多形态并存；
+- 是否保留多端（本 Skill 默认做 Web：H5 / 管理台 / PC，不做小程序条件编译）；
 - 品牌色与字体是否沿用。
 
 信息不足时先问，不要猜后端字段和业务规则。
@@ -79,6 +93,12 @@ node .claude/skills/frontend-h5-project/scripts/scaffold.mjs <target-dir> \
 - 复制 `assets/template` 到目标目录；
 - 替换 `__PROJECT_NAME__`、`__PROJECT_TITLE__`、`__API_BASE__`、`__STORAGE_PREFIX__`；
 - 生成 `docs/` 四份模板。
+
+模板已包含三种布局和示例路由：
+
+- `/`：H5 会员端；
+- `/admin`：管理后台（仪表盘 + 客户管理示例）；
+- `/site`：PC 站点首页。
 
 也可以手动复制 `assets/template`，但必须自行替换上述占位符。
 
@@ -118,6 +138,8 @@ pnpm build
 
 每个阶段只做一组页面；先确认范围再动手。
 
+管理后台按「登录 → 仪表盘 → 第一个 CRUD → 筛选/导入导出」推进；PC 站点按「首页 → 内容页 → 转化页」推进。三种形态共用请求层、登录态和设计令牌，不要复制三套基础设施。
+
 ### 5. 验收与交接
 
 每阶段收尾：
@@ -139,7 +161,10 @@ git diff --stat pnpm-lock.yaml
 - Node 20.19+ / 22.12+；pnpm 9.15.9；`.npmrc` 开启 `engine-strict=true`。
 - 只用 pnpm；禁止 npm / yarn / bun；禁止删除或重建 `pnpm-lock.yaml`。
 - 颜色只用语义类；新增色值登记项目的 `src/assets/styles/colors.css`。
-- 全站 `max-w-md` 居中；4 tab 底栏；二级页 `meta.hideBottomNav` + `meta.backTo`。
+- H5：`max-w-md` 居中、4 tab 底栏、二级页 `meta.hideBottomNav` + `meta.backTo`。
+- 管理台：`AdminLayout` 侧边栏 + 顶栏 + `max-w-7xl`；列表用表格，操作区右对齐。
+- PC：`PcLayout` 顶部导航 + `max-w-7xl` 宽内容区；移动端仍可用。
+- 三种形态通过路由组选择布局；`meta.hideBottomNav` 隐藏 H5 底栏。
 - 异步页面用骨架屏 + `swap` 过渡；图片用渐变占位 + 500ms 淡入 + 失败兜底。
 - 金额用 `big.js`；富文本必须白名单清洗后再 `v-html`。
 - 不做全局 loading、全局 Vuex、Vue2 mixin、HBuilderX 依赖。
@@ -170,6 +195,7 @@ git diff --stat pnpm-lock.yaml
 
 - `references/architecture.md`：技术栈、目录、启动顺序、请求层、登录态、路由、状态、反模式。
 - `references/ui-system.md`：品牌色、语义色、字体、布局、动效、图片加载、空/错/加载态。
+- `references/admin-and-pc.md`：管理后台 / PC 布局、路由组、表格与表单模式、响应式检查。
 - `references/components.md`：通用组件清单、props/events、动态返回、分页、日期选择、业务组件模式。
 - `references/patterns.md`：本地优先购物车、结算模式、再下一单与库存、登录前初始化、旧路径映射、富文本清洗、金额/日期、分页竞态。
 - `references/backend-contract.md`：契约调研顺序、fuint/RuoYi 响应形态、登录流程、分页归一化、已知坑记录。
@@ -207,4 +233,7 @@ git diff --stat pnpm-lock.yaml
 - 在页面里重复拼请求头、判断错误码、弹全局提示；
 - 直接 `v-html` 后端富文本；
 - 用浮点数算金额；
-- 把 mock、demo 登录、调试按钮带进生产构建。
+- 把 mock、demo 登录、调试按钮带进生产构建；
+- 把 H5 的 `max-w-md`、底部导航和移动端密度硬套到管理台或 PC；
+- 为管理台 / PC 新建第二套颜色、字体或基础组件；
+- 管理台里直接堆裸表格和裸表单，不复用分页、Toast、Confirm。

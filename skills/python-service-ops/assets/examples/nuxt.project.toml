@@ -1,0 +1,31 @@
+# 放到 <project>/ops/project.toml
+# Nuxt 全栈项目：直连 PostgreSQL，快速业务迭代。
+
+[project]
+slug = "crm"
+name = "CRM"
+type = "nuxt"
+user = "deploy"
+group = "deploy"
+env_file = ".env.production"
+after = ["postgresql.service"]
+
+[project.health]
+path = "/api/healthz"
+timeout = 2
+
+# 迁移：一次性任务，先于 web 执行
+[[services]]
+name = "migrate"
+kind = "node"
+command = "pnpm db:migrate"
+oneshot = true
+before = ["web"]
+
+# Nuxt 服务端
+[[services]]
+name = "web"
+kind = "node"
+command = "node .output/server/index.mjs"
+port = 3000
+health = "http://127.0.0.1:3000/api/healthz"

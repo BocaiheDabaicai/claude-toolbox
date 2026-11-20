@@ -1,11 +1,11 @@
 # frontend-h5-project
 
-一个可复用的前端 H5 项目生成 / 迁移 Skill。沉淀自两个真实项目：
+一个可复用的 Vue 3 Web 项目生成 / 迁移 Skill，覆盖 H5、管理后台、PC 三种界面形态。沉淀自两个真实项目：
 
 - `fuintMemberH5`：Vue2 + uni-app 会员端迁移到 Vue3 H5（25 个页面、完整交易链路）。
 - `salebate-vue3`：Vue3 + Vite 的返利下单 H5（架构参考基线）。
 
-覆盖：技术栈、目录架构、请求层与登录态、路由、Pinia、Tailwind + daisyUI UI 系统、品牌色、字体、动效、通用组件、通用函数、本地优先购物车、SKU、预订单、库存校验、迁移流程、质量门禁。
+覆盖：技术栈、目录架构、请求层与登录态、路由、Pinia、Tailwind + daisyUI UI 系统、品牌色、字体、动效、通用组件、通用函数、H5 / 管理台 / PC 三种布局、后台表格与表单模式、本地优先购物车、SKU、预订单、库存校验、迁移流程、质量门禁。
 
 ## 快速使用
 
@@ -31,11 +31,19 @@ pnpm dev
 
 模板内置 DEV 演示登录，只用于预览页面骨架；接入真实后端后删除。
 
+三种布局已包含在模板中：
+
+- `/`：H5 会员端；
+- `/admin`：管理后台（仪表盘 + 客户管理示例）；
+- `/site`：PC 站点首页。
+
 ### 让 Claude 使用
 
 在**新会话**中直接描述任务，例如：
 
 - “新建一个 Vue3 H5 会员商城项目，参考 frontend-h5-project”
+- “做一个 Vue3 管理后台，需要列表、筛选、分页和表单”
+- “同一项目要有 H5、管理后台和 PC 站点，风格统一”
 - “把 fuintUniapp 迁移成 Vue3 H5”
 - “按 frontend-h5-project 的规范搭一个收银端 H5”
 
@@ -47,7 +55,7 @@ Claude 会根据 `SKILL.md` 的触发条件加载，并按需读取 references�
 frontend-h5-project/
 ├─ SKILL.md                 # 触发条件 + 核心流程 + 资源索引
 ├─ README.md                # 本文件
-├─ references/              # 架构、UI、组件、模式、契约、迁移、质量、维护
+├─ references/              # 架构、UI、管理台/PC、组件、模式、契约、迁移、质量、维护
 ├─ assets/
 │  ├─ template/             # 可复制/可脚手架的工程骨架
 │  └─ docs-templates/       # 四份项目文档模板
@@ -78,3 +86,4 @@ frontend-h5-project/
 | 版本 | 日期 | 内容 |
 | --- | --- | --- |
 | 0.1.0 | 2026-11-19 | 初始版本：架构、UI、组件、模式、契约、迁移、质量、模板与脚手架 |
+| 0.2.0 | 2026-11-20 | 扩展管理后台 / PC：AdminLayout、PcLayout、AdminPageHeader、后台仪表盘与客户 CRUD 示例、admin-and-pc 参考与触发词 |

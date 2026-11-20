@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "migration-kit"
+version = "0.1.0"
+description = "PostgreSQL data migration kit: profile, plan, load, reconcile"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "psycopg[binary]>=3.3.9,<4",
+]
+
+[project.optional-dependencies]
+mysql = ["pymysql>=1.2.4,<2"]
+excel = ["openpyxl>=3.1.5,<4"]
+all = ["pymysql>=1.2.4,<2", "openpyxl>=3.1.5,<4"]
+
+[project.scripts]
+migration-kit = "migration_kit.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/migration_kit"]
+
+[dependency-groups]
+dev = [
+  "pytest>=9.2.0",
+  "ruff>=0.17.6",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -1,0 +1,41 @@
+# 放到 <project>/ops/project.toml
+# 前后端分离项目：Vue H5 + FastAPI。
+# 静态 H5 如果由共享 Nginx 提供，Nginx 不属于本项目 target；
+# 如果前端由 Node 提供构建产物，可取消下面 web 服务的注释。
+
+[project]
+slug = "shop"
+name = "Shop"
+type = "vue-fastapi"
+user = "deploy"
+group = "deploy"
+env_file = ".env.production"
+after = ["postgresql.service"]
+
+[project.health]
+path = "/healthz"
+timeout = 2
+
+# 数据库迁移：一次性任务，先于 api 执行
+[[services]]
+name = "migrate"
+kind = "python"
+command = "uv run alembic upgrade head"
+oneshot = true
+before = ["api"]
+
+# FastAPI
+[[services]]
+name = "api"
+kind = "python"
+command = "uv run uvicorn app.main:app --host 127.0.0.1 --port 8000"
+port = 8000
+health = "http://127.0.0.1:8000/healthz"
+
+# 可选：由 Node 提供 H5 静态构建
+# [[services]]
+# name = "web"
+# kind = "node"
+# command = "node dist/server.js"
+# port = 3000
+# health = "http://127.0.0.1:3000/healthz"

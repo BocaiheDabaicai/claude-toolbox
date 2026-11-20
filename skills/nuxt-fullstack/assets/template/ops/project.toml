@@ -1,0 +1,31 @@
+# 由 opsctl 读取，统一启停与状态管理。
+# 详细字段见 python-service-ops Skill 的 references/manifest.md。
+
+[project]
+slug = "__PROJECT_NAME__"
+name = "__PROJECT_TITLE__"
+type = "nuxt"
+env_file = ".env"
+after = ["postgresql.service"]
+# user = "deploy"
+# group = "deploy"
+
+[project.health]
+path = "/api/healthz"
+timeout = 2
+
+# 迁移：一次性任务，失败会阻止 web 启动
+[[services]]
+name = "migrate"
+kind = "node"
+command = "pnpm db:migrate"
+oneshot = true
+before = ["web"]
+
+# Nuxt 服务端
+[[services]]
+name = "web"
+kind = "node"
+command = "node .output/server/index.mjs"
+port = 3000
+health = "http://127.0.0.1:3000/api/healthz"

@@ -9,6 +9,7 @@ frontend-h5-project/
 ├─ references/              # 按需加载的详细知识
 │  ├─ architecture.md
 │  ├─ ui-system.md
+│  ├─ admin-and-pc.md
 │  ├─ components.md
 │  ├─ patterns.md
 │  ├─ backend-contract.md

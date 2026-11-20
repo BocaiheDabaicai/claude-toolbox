@@ -84,11 +84,25 @@
 
 ## 3. 布局
 
+### 3.1 H5 会员端
+
 - 全站 `max-w-md`（约 448px）居中；桌面端加 `sm:border-x` 与柔和阴影。
 - 页面底 `bg-base-200`，卡片 `bg-base-100`。
 - 顶栏 `sticky top-0`，半透明 + `backdrop-blur`。
 - 底部导航固定，容器预留 `pb-[calc(env(safe-area-inset-bottom)+0.75rem)]`。
 - 所有固定底栏都要加 `env(safe-area-inset-bottom)`，iPhone 才不会压到 home indicator。
+
+### 3.2 管理后台 / PC
+
+- 容器 `max-w-7xl`，页面底 `bg-base-200`，卡片 `bg-base-100`。
+- 管理台：左侧栏 `w-64` + 顶栏 `h-16` + 内容 `p-4 lg:p-8`；移动端侧边栏抽屉。
+- PC：顶部导航 + 宽内容区 + 页脚；`md` 以下隐藏桌面导航。
+- 表格页使用 `rounded-2xl` 卡片 + `overflow-x-auto`；表头 `text-xs text-base-content/45`。
+- 三种形态共用语义色、字体和动效；不要为后台另建主题。
+- 详细模式见 `admin-and-pc.md`。
+
+### 3.3 卡片与阴影
+
 - 内容区卡片常用 `rounded-2xl` / `rounded-3xl`，阴影克制：
 
 ```

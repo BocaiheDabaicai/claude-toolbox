@@ -1,6 +1,6 @@
 # __PROJECT_TITLE__
 
-基于 Vue 3 + Vite 8 的移动端 H5 项目骨架。
+基于 Vue 3 + Vite 8 的 Web 项目骨架，覆盖 H5、管理后台、PC 三种界面形态。
 
 ## 技术栈
 
@@ -16,18 +16,30 @@ pnpm build
 
 环境要求：Node 20.19+ / 22.12+，pnpm 9.15.9。安装规则见 [AGENTS.md](AGENTS.md)。
 
+## 三种界面形态
+
+| 路由 | 形态 | 布局 |
+| --- | --- | --- |
+| `/` | H5 会员端 | `DefaultLayout` + 底部导航 |
+| `/admin` | 管理后台 | `AdminLayout`（侧边栏 + 顶栏） |
+| `/site` | PC 站点 | `PcLayout`（顶部导航 + 宽内容区） |
+
+模板内置 DEV 演示登录；登录后可直接访问 `/admin`、`/site` 预览。接入真实后端后移除演示入口。
+
 ## 目录结构
 
 ```
 src/
 ├─ api/          # 接口函数，按业务模块拆分
 ├─ assets/       # 图片与品牌色变量
-├─ components/   # 通用组件
-├─ layouts/      # 页面容器
+├─ components/   # 通用组件（含 AdminPageHeader）
+├─ layouts/      # DefaultLayout / AdminLayout / PcLayout
 ├─ router/       # 路由表与守卫
 ├─ stores/       # Pinia 状态
 ├─ utils/        # 请求、登录态、金额、日期、提示等
 └─ views/        # 页面
+   ├─ admin/     # 管理台页面
+   └─ pc/        # PC 站点页面
 ```
 
 ## 接入步骤

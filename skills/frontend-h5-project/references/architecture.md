@@ -1,14 +1,14 @@
 # 架构设计参考
 
-> 目标：用同一套已验证的 H5 架构，快速生成新项目或迁移旧项目。本文只写可复用的结构与决策，不绑定具体业务。
+> 目标：用同一套已验证的 Web 架构，快速生成新项目或迁移旧项目，覆盖 H5、管理后台、PC 三种形态。本文只写可复用的结构与决策，不绑定具体业务。
 
 ## 1. 设计原则
 
-1. **只做 H5**：不引入 uni-app、HBuilderX、小程序条件编译。
+1. **只做 Web**：H5 / 管理台 / PC 三种形态；不引入 uni-app、HBuilderX、小程序条件编译。
 2. **只迁在用页面**：置灰、注释、无入口、商户专用页面不迁（判定见 `pages.md` 模板）。
 3. **不背旧包袱**：不复制旧全局 loading、Vuex、散落的 localStorage 读写、重复请求封装。
 4. **接口契约为准**：不改后端；后端差异集中在请求层与 api 模块处理。
-5. **移动端优先**：`max-w-md` 居中、语义色、骨架屏、统一动效。
+5. **形态匹配**：H5 用 `max-w-md` + 底栏；管理台用侧边栏；PC 用顶部导航；三者共用语义色、骨架屏和统一动效。
 6. **文档先行**：先产出架构、接口、页面、路线图四份文档，再写页面。
 
 ## 2. 技术栈基线
@@ -41,8 +41,8 @@ src/
 ├─ assets/
 │  └─ styles/
 │     └─ colors.css     # 品牌色唯一来源
-├─ components/     # 通用组件：PageHeader / BottomNav / ToastHost / ConfirmDialog ...
-├─ layouts/        # DefaultLayout：max-w-md 容器 + 页面过渡
+├─ components/     # 通用组件：PageHeader / BottomNav / AdminPageHeader / ToastHost / ConfirmDialog ...
+├─ layouts/        # DefaultLayout（H5）/ AdminLayout（后台）/ PcLayout（PC）
 ├─ router/
 │  ├─ index.js     # createRouter + 守卫 + 滚动行为
 │  ├─ routes.js    # 路由表（新增页面在此登记）
@@ -57,6 +57,8 @@ src/
 │  ├─ auth.js      # token / userId 存取
 │  ├─ toast.js / confirm.js / money.js / date.js / sanitize.js / sku.js
 ├─ views/          # 页面
+│  ├─ admin/       # 管理台页面（仪表盘、客户管理等）
+│  └─ pc/          # PC 站点页面
 ├─ App.vue         # router-view + BottomNav + ToastHost + ConfirmDialog
 ├─ main.js         # createApp().use(pinia).use(router)
 └─ style.css       # Tailwind + daisyUI 主题映射 + 全局动效
@@ -76,6 +78,18 @@ createApp(App).use(pinia).use(router).mount('#app')
 3. 全局挂载 `ToastHost` 与 `ConfirmDialog`。
 
 首屏守卫拉取用户信息期间，用目标路由解析 `booting` 状态渲染底栏，避免刷新时底栏闪没。
+
+### 4.1 三种布局的选择
+
+| 形态 | 路由组 | 布局 | 容器 | 导航 |
+| --- | --- | --- | --- | --- |
+| H5 | `/` | `DefaultLayout` | `max-w-md` | 底部 4 tab |
+| 管理台 | `/admin` | `AdminLayout` | `max-w-7xl` | 左侧栏 + 顶栏 |
+| PC | `/site` | `PcLayout` | `max-w-7xl` | 顶部导航 |
+
+- 管理台 / PC 路由组父级设置 `meta: { hideBottomNav: true }`，覆盖整组；
+- 登录、请求层、Pinia、Toast、Confirm 全局共享；
+- 布局细节与后台 CRUD 模式见 `admin-and-pc.md`。
 
 ## 5. 请求层
 

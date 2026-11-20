@@ -49,6 +49,13 @@ npx pnpm@9.15.9 install
 
 - 颜色只用 `src/style.css` 映射的语义类（`bg-primary`、`text-base-content/60` 等），新增色值先登记到 `src/assets/styles/colors.css`。
 - 页面统一放在 `src/views`，通用组件放 `src/components`，接口函数放 `src/api`，跨页状态放 `src/stores`。
+- 三种界面形态通过路由组选择布局：
+  - H5：`DefaultLayout` + 底部导航，容器 `max-w-md`；
+  - 管理台：`AdminLayout` + `src/views/admin`，容器 `max-w-7xl`；
+  - PC：`PcLayout` + `src/views/pc`，容器 `max-w-7xl`。
+- 管理台 / PC 路由组父级设置 `meta: { hideBottomNav: true }`，不要给每个子页重复设置。
+- 后台页头用 `AdminPageHeader`；列表分页复用 `PaginationBar`；操作反馈用 `toast`，危险操作用 `confirm({ danger: true })`。
+- 不要把 H5 的 `max-w-md`、底部导航、移动端密度硬套到管理台或 PC。
 - 异步页面使用骨架屏 + `swap` 过渡，避免内容直接闪现；图片加载使用渐变占位 + 淡入 + 失败兜底。
 - 富文本必须经过 `utils/sanitize.js` 白名单清洗后再 `v-html`，不要直接渲染后端 HTML。
 - 金额计算使用 `big.js`，展示统一走 `utils/money.js`。

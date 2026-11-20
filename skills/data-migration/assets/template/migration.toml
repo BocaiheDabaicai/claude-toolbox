@@ -1,0 +1,39 @@
+# 项目：__PROJECT_TITLE__
+# 源库只读；目标库写入前先备份。run 默认 dry-run，确认后再 --apply。
+
+[source]
+type = "csv"                    # csv | excel | postgres | mysql
+path = "data/customers.csv"
+encoding = "utf-8"
+delimiter = ","
+# Excel:
+# sheet = "Sheet1"
+# PostgreSQL / MySQL:
+# dsn = "${SOURCE_DSN}"
+# schema = "public"
+# table = "legacy_customers"
+# cursor_column = "id"          # 可选：数据库源断点续跑
+# where = "deleted_at is null"
+
+[target]
+dsn = "${TARGET_DSN}"
+schema = "public"
+table = "customers"
+
+[mapping]
+file = "mapping.csv"
+transform_module = "transforms"
+
+[run]
+batch_size = 1000
+key = ["legacy_id"]             # 目标表唯一键，用于 ON CONFLICT
+state_file = ".migration-state.json"
+sample_limit = 5
+on_error = "stop"               # stop | skip
+
+# 对账：SQL 对账只支持 postgres / mysql 源。
+# [[reconcile.checks]]
+# name = "customers_count"
+# source_sql = "SELECT count(*) FROM legacy_customers"
+# target_sql = "SELECT count(*) FROM public.customers"
+# tolerance = "0"

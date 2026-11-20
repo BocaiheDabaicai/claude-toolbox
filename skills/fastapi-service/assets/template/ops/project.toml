@@ -1,0 +1,31 @@
+# 由 opsctl 读取，统一启停与状态管理。
+# 详细字段见 python-service-ops Skill 的 references/manifest.md。
+
+[project]
+slug = "__PROJECT_SLUG__"
+name = "__PROJECT_TITLE__"
+type = "custom"
+env_file = ".env"
+after = ["postgresql.service"]
+# user = "deploy"
+# group = "deploy"
+
+[project.health]
+path = "/api/healthz"
+timeout = 2
+
+# 数据库迁移：一次性任务，失败会阻止 api 启动
+[[services]]
+name = "migrate"
+kind = "python"
+command = "uv run alembic upgrade head"
+oneshot = true
+before = ["api"]
+
+# FastAPI
+[[services]]
+name = "api"
+kind = "python"
+command = "uv run uvicorn app.main:app --host 127.0.0.1 --port 8000"
+port = 8000
+health = "http://127.0.0.1:8000/api/healthz"
