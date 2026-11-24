@@ -32,12 +32,12 @@ async function submit() {
 </script>
 
 <template>
-  <div class="card bg-base-100 shadow-xl">
-    <form class="card-body gap-4" @submit.prevent="submit">
+  <div class="card border border-base-300 bg-base-100 shadow-[0_1px_3px_rgba(15,23,42,0.08)]">
+    <form class="card-body gap-4 p-6" @submit.prevent="submit">
       <div>
-        <h2 class="card-title text-lg">登录</h2>
-        <p class="mt-1 text-sm text-base-content/60">
-          使用管理员账号进入业务后台
+        <h2 class="text-base font-semibold">账号登录</h2>
+        <p class="mt-1 text-[13px] text-base-content/60">
+          使用管理员或运营账号进入系统
         </p>
       </div>
 
@@ -67,7 +67,7 @@ async function submit() {
 
       <p
         v-if="error"
-        class="rounded-xl bg-error-soft px-3 py-2 text-sm text-error"
+        class="rounded-md bg-error-soft px-3 py-2 text-[13px] text-error"
       >
         {{ error }}
       </p>
@@ -80,8 +80,8 @@ async function submit() {
         {{ pending ? '登录中…' : '登录' }}
       </button>
 
-      <p class="text-center text-xs text-base-content/40">
-        首次使用请先执行 pnpm db:seed
+      <p class="text-center text-[11px] text-base-content/40">
+        无法登录时请联系系统管理员
       </p>
     </form>
   </div>

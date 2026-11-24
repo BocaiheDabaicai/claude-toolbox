@@ -12,7 +12,7 @@ Nuxt 4 全栈业务应用 Skill：页面、API、PostgreSQL 直连、Cookie 会�
 
 - 管理后台、内部系统、MVP；
 - 需要快速迭代的业务闭环；
-- 希望与 `frontend-h5-project` 共用品牌色和组件风格；
+- 需要一套与会员端 H5 区分开的专业后台视觉（石墨侧栏 + 冷白内容 + 深湖蓝主色）；
 - 单台 Linux 服务器上由 `python-service-ops` 统一起停。
 
 ## 快速开始
@@ -51,7 +51,7 @@ opsctl status my-admin --root /srv/projects
 - 客户列表 / 搜索 / 分页 / 新建 / 编辑 / 软删；
 - Drizzle schema + 初始迁移 + seed；
 - 统一 `{ code, message, data }` 响应与 Zod 校验；
-- Tailwind 4 + daisyUI 5 品牌主题；
+- Tailwind 4 + daisyUI 5 后台主题：石墨侧栏、冷白内容区、深湖蓝主色、浅底状态标签；
 - `ops/project.toml`、`/api/healthz`、`/api/readyz`；
 - 边界检查脚本，阻止客户端引用数据库。
 
@@ -74,3 +74,4 @@ nuxt-fullstack/
 | 版本 | 日期 | 内容 |
 | --- | --- | --- |
 | 0.1.0 | 2026-11-20 | 初始版本：Nuxt 4.5.2 全栈模板、Drizzle 迁移、Cookie 会话、客户 CRUD、ops manifest、构建与类型检查通过 |
+| 0.2.0 | 2026-11-24 | 后台 UI 改版：石墨侧栏 + 冷白内容 + 深湖蓝主色；分组单行导航、面包屑、面板/表格/状态标签密度规范；新增 `admin.css`、`AppNavIcon`、`navigation.ts` |

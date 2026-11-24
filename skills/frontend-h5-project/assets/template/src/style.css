@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./assets/styles/colors.css";
+@import "./assets/styles/admin.css";
 
 /* 禁用 daisyUI 内置主题（其默认主色为紫色，层级会覆盖品牌色），配色完全由 colors.css 控制 */
 @plugin "daisyui" {

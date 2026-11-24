@@ -15,8 +15,8 @@ const totalPages = computed(() => Math.max(Math.ceil(props.total / props.pageSiz
 </script>
 
 <template>
-  <div v-if="total > 0" class="flex items-center justify-between gap-3 px-1">
-    <p class="shrink-0 text-sm text-base-content/45">
+  <div v-if="total > 0" class="pagination-bar flex items-center justify-between gap-3 px-1">
+    <p class="pagination-meta shrink-0 text-sm text-base-content/45">
       共 <span class="font-bold text-base-content">{{ total }}</span> {{ unit }}
       <slot />
     </p>
@@ -24,7 +24,7 @@ const totalPages = computed(() => Math.max(Math.ceil(props.total / props.pageSiz
     <div class="flex items-center gap-2">
       <label class="relative block">
         <select
-          class="h-7 appearance-none rounded-full border border-base-300 bg-base-100 pl-2.5 pr-6 text-xs text-base-content/60 outline-none"
+          class="pagination-size h-7 appearance-none rounded-full border border-base-300 bg-base-100 pl-2.5 pr-6 text-xs text-base-content/60 outline-none"
           :value="pageSize"
           aria-label="每页条数"
           @change="emit('size-change', Number($event.target.value))"
@@ -40,7 +40,7 @@ const totalPages = computed(() => Math.max(Math.ceil(props.total / props.pageSiz
       </label>
 
       <button
-        class="flex h-7 w-7 items-center justify-center rounded-full border border-base-300 text-base-content/50 transition-colors active:bg-base-200 disabled:opacity-35"
+        class="pagination-btn flex h-7 w-7 items-center justify-center rounded-full border border-base-300 text-base-content/50 transition-colors active:bg-base-200 disabled:opacity-35"
         :disabled="pageNum <= 1"
         aria-label="上一页"
         @click="emit('page-change', pageNum - 1)"
@@ -50,12 +50,12 @@ const totalPages = computed(() => Math.max(Math.ceil(props.total / props.pageSiz
         </svg>
       </button>
 
-      <span class="text-xs text-base-content/60">
+      <span class="pagination-meta text-xs text-base-content/60">
         <span class="font-bold text-base-content">{{ pageNum }}</span> / {{ totalPages }}
       </span>
 
       <button
-        class="flex h-7 w-7 items-center justify-center rounded-full border border-base-300 text-base-content/50 transition-colors active:bg-base-200 disabled:opacity-35"
+        class="pagination-btn flex h-7 w-7 items-center justify-center rounded-full border border-base-300 text-base-content/50 transition-colors active:bg-base-200 disabled:opacity-35"
         :disabled="pageNum >= totalPages"
         aria-label="下一页"
         @click="emit('page-change', pageNum + 1)"

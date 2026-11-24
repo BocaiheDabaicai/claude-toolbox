@@ -21,8 +21,10 @@ pnpm build
 | 路由 | 形态 | 布局 |
 | --- | --- | --- |
 | `/` | H5 会员端 | `DefaultLayout` + 底部导航 |
-| `/admin` | 管理后台 | `AdminLayout`（侧边栏 + 顶栏） |
+| `/admin` | 管理后台 | `AdminLayout`（石墨侧栏 + 顶栏） |
 | `/site` | PC 站点 | `PcLayout`（顶部导航 + 宽内容区） |
+
+H5 / PC 使用 `src/assets/styles/colors.css` 的消费者品牌色；管理台使用 `src/assets/styles/admin.css` 的独立后台主题（石墨侧栏 + 冷白内容 + 深湖蓝）。从 `/admin` 跳到登录页时，登录卡片会自动切换为后台样式。
 
 模板内置 DEV 演示登录；登录后可直接访问 `/admin`、`/site` 预览。接入真实后端后移除演示入口。
 
@@ -31,8 +33,8 @@ pnpm build
 ```
 src/
 ├─ api/          # 接口函数，按业务模块拆分
-├─ assets/       # 图片与品牌色变量
-├─ components/   # 通用组件（含 AdminPageHeader）
+├─ assets/       # 图片与配色（colors.css / admin.css）
+├─ components/   # 通用组件（AdminPageHeader / AdminNavIcon 等）
 ├─ layouts/      # DefaultLayout / AdminLayout / PcLayout
 ├─ router/       # 路由表与守卫
 ├─ stores/       # Pinia 状态

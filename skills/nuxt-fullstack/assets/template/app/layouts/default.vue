@@ -1,9 +1,9 @@
 <template>
-  <div class="drawer min-h-screen bg-base-200 lg:drawer-open">
+  <div class="admin-theme drawer min-h-screen bg-base-200 lg:drawer-open">
     <input id="app-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex min-h-screen flex-col">
       <AppTopbar />
-      <main class="flex-1 p-4 lg:p-8">
+      <main class="flex-1 p-4 lg:p-6">
         <div class="mx-auto w-full max-w-7xl">
           <slot />
         </div>

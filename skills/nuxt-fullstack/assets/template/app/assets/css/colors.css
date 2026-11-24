@@ -1,59 +1,70 @@
 /* ==========================================================
-   品牌配色规范 —— 主题「奶白 × 湖水蓝 × 薄荷绿」
-   适用：会员商城、返利、收银等移动端 H5（清新、健康、自然）。
+   管理后台配色规范 ——「石墨侧栏 × 冷白内容 × 深湖蓝」
+   适用：Nuxt 全栈管理后台、内部系统、运营台。
 
    使用方式：
-   1. 优先使用 Tailwind 语义类（bg-primary、text-accent 等），
-      这些类已由 src/style.css 的 @theme 映射到下方变量；
-   2. 自定义样式引用 var(--brand-*)；
-   3. 新增颜色必须在此文件登记，禁止在组件里随意写色值；
+   1. 优先使用 Tailwind 语义类（bg-primary、text-base-content/60 等），
+      这些类已由 main.css 的 @theme 映射到下方变量；
+   2. 自定义样式引用 var(--brand-*) / var(--admin-*)；
+   3. 新增颜色必须在此文件登记，禁止在组件里写色值；
    4. 调整主题只需修改本文件。
 
-   oklch 为主色值，hex 为参考值（供设计工具取色）。
+   与 H5 会员端的区别：
+   - 后台以中性色承担 90% 的界面，主色只用于主操作、选中态和链接；
+   - 语义色一律「深色文字 + 浅色底」，不用高饱和大色块；
+   - 侧栏使用石墨深色，内容区保持冷白高对比。
    ========================================================== */
 
 :root {
-  /* —— 主色 湖水蓝：按钮、链接、选中态、重点区域 —— */
-  --brand-primary: oklch(60% 0.1 235);              /* ≈ #4E96D6 */
-  --brand-primary-content: oklch(99% 0 0);          /* 主色上的文字 ≈ #FFFFFF */
+  /* —— 主色 深湖蓝：主按钮、链接、选中态 —— */
+  --brand-primary: #1f5fa8;
+  --brand-primary-content: #ffffff;
+  --brand-primary-soft: #eaf2fa;
 
-  /* —— 次色 薄荷绿：健康自然、渐变搭档、有机/成功标识 —— */
-  --brand-secondary: oklch(78% 0.1 180);            /* ≈ #7ED8BB */
-  --brand-secondary-content: oklch(28% 0.05 180);   /* 次色上的文字 ≈ #1F4D43 */
+  /* —— 中性色：次要按钮、标签、正文层级 —— */
+  --brand-secondary: #475467;
+  --brand-secondary-content: #ffffff;
+  --brand-accent: #344054;
+  --brand-accent-content: #ffffff;
+  --brand-neutral: #344054;
+  --brand-neutral-content: #f9fafb;
 
-  /* —— 强调 深湖水蓝：价格、返利金额、重要数字 —— */
-  --brand-accent: oklch(50% 0.09 250);              /* ≈ #2E6EAD */
-  --brand-accent-content: oklch(99% 0 0);           /* 强调色上的文字 ≈ #FFFFFF */
+  /* —— 表面与文字 —— */
+  --brand-base-100: #ffffff;
+  --brand-base-200: #f5f6f8;
+  --brand-base-300: #e4e7ec;
+  --brand-base-content: #1d2939;
 
-  /* —— 底色：页面与卡片 —— */
-  --brand-base-100: oklch(100% 0 0);                /* 纯白：卡片、弹层 ≈ #FFFFFF */
-  --brand-base-200: oklch(97.8% 0.007 230);         /* 奶蓝白：页面底 ≈ #F6FAFD */
-  --brand-base-300: oklch(92.5% 0.014 235);         /* 浅蓝灰：边框、分割线 ≈ #E4EDF5 */
-  --brand-base-content: oklch(32% 0.035 252);       /* 正文文字 ≈ #2A3B57 */
+  /* —— 功能色：深色文字 + 浅色底 —— */
+  --brand-info: #175cd3;
+  --brand-info-content: #ffffff;
+  --brand-info-soft: #eff8ff;
+  --brand-success: #067647;
+  --brand-success-content: #ffffff;
+  --brand-success-soft: #ecfdf3;
+  --brand-warning: #b54708;
+  --brand-warning-content: #ffffff;
+  --brand-warning-soft: #fffaeb;
+  --brand-error: #b42318;
+  --brand-error-content: #ffffff;
+  --brand-error-soft: #fef3f2;
 
-  /* —— 中性色 —— */
-  --brand-neutral: oklch(40% 0.04 250);             /* ≈ #3D5A7F */
-  --brand-neutral-content: oklch(96% 0.008 230);    /* ≈ #EFF6FC */
+  /* —— 石墨侧栏 —— */
+  --admin-rail: #0f172a;
+  --admin-rail-border: rgb(255 255 255 / 0.08);
+  --admin-rail-title: #f8fafc;
+  --admin-rail-subtitle: rgb(255 255 255 / 0.5);
+  --admin-rail-label: rgb(255 255 255 / 0.45);
+  --admin-rail-link: rgb(255 255 255 / 0.6);
+  --admin-rail-link-hover: rgb(255 255 255 / 0.9);
+  --admin-rail-hover-bg: rgb(255 255 255 / 0.04);
+  --admin-rail-active-bg: rgb(255 255 255 / 0.06);
+  --admin-rail-active-text: #ffffff;
+  --admin-accent: #7cb3e8;
 
-  /* —— 功能色 —— */
-  --brand-info: oklch(65% 0.09 230);                /* ≈ #5B9ED9 */
-  --brand-info-content: oklch(98% 0.005 230);
-  --brand-success: oklch(62% 0.11 165);             /* 健康绿 ≈ #3FA97D */
-  --brand-success-content: oklch(98% 0.01 165);
-  --brand-warning: oklch(78% 0.11 85);              /* ≈ #D9A84E */
-  --brand-warning-content: oklch(25% 0.04 85);
-  --brand-error: oklch(58% 0.17 25);                /* ≈ #C9503C */
-  --brand-error-content: oklch(97% 0.01 25);
-
-  /* —— 浅色语义底：标签、选中态、提示（避免依赖 color-mix 的透明度兜底） —— */
-  --brand-primary-soft: oklch(95% 0.025 235);       /* ≈ #E8F3FD */
-  --brand-success-soft: oklch(94% 0.035 165);       /* 浅薄荷 */
-  --brand-warning-soft: oklch(96% 0.045 85);        /* 浅琥珀 */
-  --brand-error-soft: oklch(95% 0.035 25);          /* 浅珊瑚 */
-
-  /* —— 品牌渐变 —— */
-  --brand-gradient: linear-gradient(135deg, #5fa8ec 0%, #6cc7a8 100%);
-    /* 天空蓝 → 薄荷绿：logo、重点强调块 */
-  --brand-gradient-air: linear-gradient(135deg, #e8f4fe 0%, #ffffff 50%, #e9f9f2 100%);
-    /* 空气感浅渐变：欢迎区、分区底色 */
+  /* —— 表格与卡片 —— */
+  --admin-card-shadow: 0 1px 2px rgb(15 23 42 / 0.05);
+  --admin-table-head-bg: #f8fafc;
+  --admin-row-border: #eef2f6;
+  --admin-row-hover: #f8fafc;
 }

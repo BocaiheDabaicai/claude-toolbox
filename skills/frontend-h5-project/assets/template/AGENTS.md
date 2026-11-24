@@ -47,15 +47,17 @@ npx pnpm@9.15.9 install
 
 ## 前端约定
 
-- 颜色只用 `src/style.css` 映射的语义类（`bg-primary`、`text-base-content/60` 等），新增色值先登记到 `src/assets/styles/colors.css`。
+- 颜色只用 `src/style.css` 映射的语义类（`bg-primary`、`text-base-content/60` 等）。H5/PC 新增色值登记 `src/assets/styles/colors.css`，管理台新增色值登记 `src/assets/styles/admin.css`。
+- 管理台根节点使用 `admin-theme`；后台令牌与结构样式在 `src/assets/styles/admin.css`，H5/PC 的消费者品牌色在 `colors.css`，两套不要混用。
 - 页面统一放在 `src/views`，通用组件放 `src/components`，接口函数放 `src/api`，跨页状态放 `src/stores`。
 - 三种界面形态通过路由组选择布局：
   - H5：`DefaultLayout` + 底部导航，容器 `max-w-md`；
-  - 管理台：`AdminLayout` + `src/views/admin`，容器 `max-w-7xl`；
+  - 管理台：`AdminLayout` + `src/views/admin`，石墨侧栏 + 顶栏 + `max-w-7xl`；
   - PC：`PcLayout` + `src/views/pc`，容器 `max-w-7xl`。
 - 管理台 / PC 路由组父级设置 `meta: { hideBottomNav: true }`，不要给每个子页重复设置。
-- 后台页头用 `AdminPageHeader`；列表分页复用 `PaginationBar`；操作反馈用 `toast`，危险操作用 `confirm({ danger: true })`。
-- 不要把 H5 的 `max-w-md`、底部导航、移动端密度硬套到管理台或 PC。
+- 后台页头用 `AdminPageHeader`；卡片/表格容器用 `.panel`，表格用 `.table`；状态用 `badge` 语义类；列表分页复用 `PaginationBar`；操作反馈用 `toast`，危险操作用 `confirm({ danger: true })`。
+- 管理台 KPI 卡片只放业务指标，不要把数据库/认证等技术栈信息做成 KPI；禁止渐变 Logo、糖果色大色块、彩色投影和 `rounded-2xl + shadow-xl`。
+- 不要把 H5 的 `max-w-md`、底部导航、移动端密度硬套到管理台或 PC；也不要把后台的深色侧栏带到 H5 / PC。
 - 异步页面使用骨架屏 + `swap` 过渡，避免内容直接闪现；图片加载使用渐变占位 + 淡入 + 失败兜底。
 - 富文本必须经过 `utils/sanitize.js` 白名单清洗后再 `v-html`，不要直接渲染后端 HTML。
 - 金额计算使用 `big.js`，展示统一走 `utils/money.js`。

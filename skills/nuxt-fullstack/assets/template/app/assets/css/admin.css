@@ -1,0 +1,144 @@
+/* ==========================================================
+   管理后台结构样式
+   - 作用域：.admin-theme（default / auth 布局根节点）
+   - 颜色令牌见 colors.css，这里只定义组件形态与密度
+   ========================================================== */
+
+/* —— 面板：卡片、表格容器、设置分区统一使用 —— */
+.admin-theme .panel {
+  background-color: var(--color-base-100);
+  border: 1px solid var(--color-base-300);
+  border-radius: var(--radius-box);
+  box-shadow: var(--admin-card-shadow);
+}
+
+/* —— 表格：表头独立底色、行高更紧凑、移动端保留横向滚动 —— */
+.admin-theme .table {
+  min-width: 680px;
+}
+
+.admin-theme .table :where(thead th) {
+  background-color: var(--admin-table-head-bg);
+  border-bottom: 1px solid var(--color-base-300);
+  color: #667085;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 0.625rem 1rem;
+  white-space: nowrap;
+}
+
+.admin-theme .table :where(tbody td) {
+  padding: 0.75rem 1rem;
+}
+
+.admin-theme .table :where(tbody tr) {
+  border-color: var(--admin-row-border);
+}
+
+.admin-theme .table :where(tbody tr:hover) {
+  background-color: var(--admin-row-hover);
+}
+
+/* —— 状态标签：浅底深字，统一胶囊形 —— */
+.admin-theme .badge {
+  border: 0;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.admin-theme .badge-primary {
+  background-color: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.admin-theme .badge-secondary,
+.admin-theme .badge-ghost {
+  background-color: #f2f4f7;
+  color: #475467;
+}
+
+.admin-theme .badge-success {
+  background-color: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.admin-theme .badge-warning {
+  background-color: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.admin-theme .badge-error {
+  background-color: var(--color-error-soft);
+  color: var(--color-error);
+}
+
+/* —— 按钮：字重降一档，层级靠颜色和边框，不靠投影 —— */
+.admin-theme .btn {
+  font-weight: 500;
+}
+
+.admin-theme .btn-outline {
+  border-color: var(--color-base-300);
+  color: var(--color-base-content);
+}
+
+.admin-theme .btn-outline:hover {
+  border-color: #d0d5dd;
+  background-color: var(--color-base-200);
+  color: var(--color-base-content);
+}
+
+/* —— 表单控件：白底、细边框，聚焦时用主色描边 —— */
+.admin-theme .input,
+.admin-theme .select,
+.admin-theme .textarea {
+  background-color: var(--color-base-100);
+  border-color: var(--color-base-300);
+  font-size: 0.875rem;
+}
+
+/* —— 页头右侧操作区在窄屏下换行不溢出 —— */
+.admin-theme .page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* —— 石墨侧栏 —— */
+.admin-theme .rail {
+  background-color: var(--admin-rail);
+}
+
+.admin-theme .rail-border {
+  border-color: var(--admin-rail-border);
+}
+
+.admin-theme .rail-title {
+  color: var(--admin-rail-title);
+}
+
+.admin-theme .rail-subtitle {
+  color: var(--admin-rail-subtitle);
+}
+
+.admin-theme .rail-label {
+  color: var(--admin-rail-label);
+}
+
+.admin-theme .rail-link {
+  color: var(--admin-rail-link);
+}
+
+.admin-theme .rail-link:hover {
+  background-color: var(--admin-rail-hover-bg);
+  color: var(--admin-rail-link-hover);
+}
+
+.admin-theme .rail-link.is-active {
+  background-color: var(--admin-rail-active-bg);
+  color: var(--admin-rail-active-text);
+  font-weight: 500;
+}

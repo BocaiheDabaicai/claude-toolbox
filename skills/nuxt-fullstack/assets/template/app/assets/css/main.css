@@ -1,12 +1,13 @@
 @import "tailwindcss";
 @import "./colors.css";
+@import "./admin.css";
 
 /* 禁用 daisyUI 内置主题，配色完全由 colors.css 控制 */
 @plugin "daisyui" {
   themes: false;
 }
 
-/* 品牌主题：把品牌配色映射为 Tailwind / daisyUI 语义变量 */
+/* 主题映射：把 colors.css 的令牌映射为 Tailwind / daisyUI 语义变量 */
 @theme {
   --color-primary: var(--brand-primary);
   --color-primary-content: var(--brand-primary-content);
@@ -23,6 +24,7 @@
   --color-neutral-content: var(--brand-neutral-content);
   --color-info: var(--brand-info);
   --color-info-content: var(--brand-info-content);
+  --color-info-soft: var(--brand-info-soft);
   --color-success: var(--brand-success);
   --color-success-content: var(--brand-success-content);
   --color-success-soft: var(--brand-success-soft);
@@ -32,9 +34,9 @@
   --color-error: var(--brand-error);
   --color-error-content: var(--brand-error-content);
   --color-error-soft: var(--brand-error-soft);
-  --radius-selector: 1rem;
-  --radius-field: 0.5rem;
-  --radius-box: 1rem;
+  --radius-selector: 0.375rem;
+  --radius-field: 0.375rem;
+  --radius-box: 0.5rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
   --border: 1px;
@@ -66,7 +68,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 动效规范：与 H5 Skill 保持一致 */
+/* 动效规范：与 H5 Skill 保持同一套时长和缓动 */
 :root {
   --motion-fast: 150ms;
   --motion-expand: 200ms;

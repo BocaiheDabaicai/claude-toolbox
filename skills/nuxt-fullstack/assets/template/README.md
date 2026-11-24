@@ -35,17 +35,27 @@ pnpm db:migrate          # 应用迁移
 pnpm db:seed             # 管理员 + 示例客户
 ```
 
+## 界面
+
+后台主题为「石墨侧栏 × 冷白内容 × 深湖蓝」：
+
+- 颜色令牌：`app/assets/css/colors.css`
+- 面板、表格、状态标签等结构样式：`app/assets/css/admin.css`
+- 侧栏与面包屑导航配置：`app/utils/navigation.ts`
+
+颜色只用语义类，新增色值先登记 `colors.css`；禁止在组件里写裸色值、渐变或大圆角重投影。
+
 ## 目录
 
 ```
 app/                      # 页面、布局、组件、composable、样式
 ├─ assets/css/            # 设计令牌与全局样式
-├─ components/            # AppSidebar / AppTopbar / PageHeader / EmptyState
+├─ components/            # AppSidebar / AppTopbar / AppNavIcon / PageHeader / EmptyState
 ├─ composables/useAuth.ts # 客户端会话状态
 ├─ layouts/               # default（后台）/ auth（登录）
 ├─ middleware/            # 全局登录守卫
 ├─ pages/                 # 登录、仪表盘、客户、设置
-└─ utils/                 # 日期格式化等
+└─ utils/                 # 导航配置、日期格式化等
 server/                   # 仅服务端
 ├─ api/                   # healthz / readyz / auth / customers
 ├─ database/              # Drizzle schema 与迁移

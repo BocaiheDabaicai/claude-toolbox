@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { ApiResponse } from '~~/shared/types/api'
 import type { CustomerList } from '~~/shared/types/customer'
+import { USER_ROLE_LABELS } from '~~/shared/types/auth'
 
 useHead({ title: '仪表盘' })
+
+const { user } = useAuth()
 
 const { data, pending, error } = await useApiFetch<ApiResponse<CustomerList>>(
   '/api/customers',
@@ -11,6 +14,10 @@ const { data, pending, error } = await useApiFetch<ApiResponse<CustomerList>>(
 
 const total = computed(() => data.value?.data.total ?? 0)
 const recent = computed(() => data.value?.data.rows ?? [])
+const latest = computed(() => recent.value[0] ?? null)
+const roleLabel = computed(() =>
+  user.value ? USER_ROLE_LABELS[user.value.role] : '-',
+)
 </script>
 
 <template>
@@ -18,40 +25,73 @@ const recent = computed(() => data.value?.data.rows ?? [])
     <PageHeader title="仪表盘" description="业务概览与最近客户" />
 
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      <div class="rounded-2xl border border-base-300 bg-base-100 p-5">
-        <p class="text-sm text-base-content/60">客户总数</p>
-        <p class="mt-2 text-3xl font-semibold tabular-nums">{{ total }}</p>
-        <p class="mt-1 text-xs text-base-content/40">不含已删除客户</p>
+      <div class="panel p-5">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="text-xs font-medium text-base-content/60">客户总数</p>
+            <p class="mt-2 text-2xl font-semibold tabular-nums">{{ total }}</p>
+          </div>
+          <span
+            class="flex h-8 w-8 items-center justify-center rounded-md bg-primary-soft text-primary"
+          >
+            <AppNavIcon name="customers" />
+          </span>
+        </div>
+        <p class="mt-3 text-[11px] text-base-content/60">不含已删除客户</p>
       </div>
-      <div class="rounded-2xl border border-base-300 bg-base-100 p-5">
-        <p class="text-sm text-base-content/60">数据库</p>
-        <p class="mt-2 text-2xl font-semibold text-success">PostgreSQL</p>
-        <p class="mt-1 text-xs text-base-content/40">直连 · Drizzle ORM</p>
-      </div>
-      <div class="rounded-2xl border border-base-300 bg-base-100 p-5">
-        <p class="text-sm text-base-content/60">认证</p>
-        <p class="mt-2 text-2xl font-semibold">Cookie</p>
-        <p class="mt-1 text-xs text-base-content/40">
-          HttpOnly · SameSite=Lax
+
+      <div class="panel p-5">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <p class="text-xs font-medium text-base-content/60">最近新增客户</p>
+            <p class="mt-2 truncate text-xl font-semibold">
+              {{ latest?.name || '—' }}
+            </p>
+          </div>
+          <span
+            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary-soft text-primary"
+          >
+            <AppNavIcon name="clock" />
+          </span>
+        </div>
+        <p class="mt-3 text-[11px] text-base-content/60">
+          {{ latest ? formatDateTime(latest.createdAt) : '暂无客户数据' }}
         </p>
+      </div>
+
+      <div class="panel p-5">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <p class="text-xs font-medium text-base-content/60">当前账号</p>
+            <p class="mt-2 truncate text-xl font-semibold">
+              {{ user?.name || '未登录' }}
+            </p>
+          </div>
+          <span
+            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary-soft text-primary"
+          >
+            <AppNavIcon name="employees" />
+          </span>
+        </div>
+        <p class="mt-3 text-[11px] text-base-content/60">{{ roleLabel }}</p>
       </div>
     </div>
 
-    <div class="mt-6 rounded-2xl border border-base-300 bg-base-100">
-      <div class="flex items-center justify-between border-b border-base-300 px-5 py-4">
+    <div class="panel mt-4 overflow-hidden">
+      <div class="flex items-center justify-between border-b border-base-300 px-5 py-3.5">
         <div>
-          <h2 class="text-sm font-semibold">最近客户</h2>
-          <p class="mt-0.5 text-xs text-base-content/50">按创建时间倒序</p>
+          <h2 class="text-[13px] font-semibold">最近客户</h2>
+          <p class="mt-0.5 text-[11px] text-base-content/60">按创建时间倒序</p>
         </div>
-        <NuxtLink to="/customers" class="btn btn-ghost btn-sm">
+        <NuxtLink to="/customers" class="btn btn-ghost btn-sm text-primary">
           查看全部
         </NuxtLink>
       </div>
 
       <div v-if="pending" class="space-y-3 p-5">
-        <div v-for="i in 4" :key="i" class="skeleton h-10 w-full" />
+        <div v-for="i in 4" :key="i" class="skeleton h-9 w-full" />
       </div>
-      <div v-else-if="error" class="p-5 text-sm text-error">
+      <div v-else-if="error" class="p-5 text-[13px] text-error">
         加载失败：{{ error.message }}
       </div>
       <div v-else-if="recent.length === 0" class="p-5">
@@ -92,7 +132,7 @@ const recent = computed(() => data.value?.data.rows ?? [])
                   {{ customer.status === 'active' ? '正常' : '停用' }}
                 </span>
               </td>
-              <td class="text-sm text-base-content/50">
+              <td class="text-[13px] text-base-content/60">
                 {{ formatDateTime(customer.createdAt) }}
               </td>
             </tr>

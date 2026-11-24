@@ -1,7 +1,7 @@
 ---
 name: frontend-h5-project
-description: 当用户要求“新建前端项目”“搭建 Vue3 H5 工程”“做管理后台”“做 PC 网站”“H5 / 管理台 / PC 三端”“后台列表表单”“迁移 uni-app/Vue2 到 Vue3”“参考 salebate-vue3 或 fuintMemberH5”“生成会员端 H5”“沉淀前端项目规范”，或需要一个可复用的 Vue 3 + Vite + Tailwind + Pinia 前端项目骨架时使用。覆盖 H5 / 管理后台 / PC 三种布局、项目生成、旧项目迁移、架构设计、UI 设计系统、通用组件与函数、接口契约和质量门禁。
-version: 0.2.0
+description: 当用户要求“新建前端项目”“搭建 Vue3 H5 工程”“做管理后台”“做 PC 网站”“H5 / 管理台 / PC 三端”“后台列表表单”“迁移 uni-app/Vue2 到 Vue3”“参考 salebate-vue3 或 fuintMemberH5”“生成会员端 H5”“沉淀前端项目规范”，或需要一个可复用的 Vue 3 + Vite + Tailwind + Pinia 前端项目骨架时使用。覆盖 H5 / 管理后台 / PC 三种布局、专业后台 UI（石墨侧栏 + 冷白内容 + 深湖蓝）、项目生成、旧项目迁移、架构设计、UI 设计系统、通用组件与函数、接口契约和质量门禁。
+version: 0.3.0
 ---
 
 # 前端 H5 / 管理后台 / PC 项目生成与迁移
@@ -15,7 +15,7 @@ version: 0.2.0
 - 新建 Vue 3 + Vite 的移动端 H5 项目；
 - 新建管理后台，需要列表、筛选、分页、表单、弹窗等后台模式；
 - 新建 PC 站点，需要顶部导航、宽内容区和响应式布局；
-- 同一项目需要 H5 / 管理台 / PC 多种界面形态，并共用设计令牌；
+- 同一项目需要 H5 / 管理台 / PC 多种界面形态；H5/PC 共用消费者品牌色，管理台使用独立后台主题；
 - 把 Vue2 / uni-app / HBuilderX / uview 项目迁移到 H5；
 - 要求与 `salebate-vue3`、`fuintMemberH5` 架构保持一致；
 - 需要沉淀团队的前端项目规范、组件库、通用函数与迁移流程；
@@ -28,16 +28,16 @@ version: 0.2.0
 | 形态 | 布局 | 路由组 | 典型页面 |
 | --- | --- | --- | --- |
 | H5 会员端 | `DefaultLayout` + 底部导航 | `/` | 商城、返利、收银、订单 |
-| 管理后台 | `AdminLayout`（侧边栏 + 顶栏 + `max-w-7xl`） | `/admin` | 仪表盘、列表、表单、导入导出 |
+| 管理后台 | `AdminLayout`（石墨侧栏 + 顶栏 + `max-w-7xl`） | `/admin` | 仪表盘、列表、表单、导入导出 |
 | PC 站点 | `PcLayout`（顶部导航 + 宽内容区） | `/site` | 官网、内容页、宽屏业务 |
 
-三种形态共用 `colors.css`、字体、动效和基础交互；布局、导航和密度按形态调整，不维护第二套主题。
+H5 / PC 共用 `colors.css`、字体、动效和基础组件；管理台使用 `.admin-theme` 的独立后台主题（颜色、圆角、密度），但继续共用字体、动效以及分页 / Toast / Confirm，不重复造基础设施。
 
 ## 两种模式
 
 ### A. 新项目生成
 
-1. 确认项目名、标题、目标目录、接口 Base URL、品牌色是否沿用；
+1. 确认项目名、标题、目标目录、接口 Base URL、H5/PC 品牌色是否沿用（管理台默认使用后台主题）；
 2. 用脚手架生成骨架；
 3. 按目标后端实现请求层、登录态、路由守卫；
 4. 按页面清单逐页实现。
@@ -62,7 +62,7 @@ version: 0.2.0
 - 迁移范围：哪些页面必须做，哪些不做；
 - 界面形态：只做 H5、只做管理台、只做 PC，还是多形态并存；
 - 是否保留多端（本 Skill 默认做 Web：H5 / 管理台 / PC，不做小程序条件编译）；
-- 品牌色与字体是否沿用。
+- H5/PC 品牌色与字体是否沿用；管理台使用默认后台主题还是指定主色。
 
 信息不足时先问，不要猜后端字段和业务规则。
 
@@ -138,7 +138,7 @@ pnpm build
 
 每个阶段只做一组页面；先确认范围再动手。
 
-管理后台按「登录 → 仪表盘 → 第一个 CRUD → 筛选/导入导出」推进；PC 站点按「首页 → 内容页 → 转化页」推进。三种形态共用请求层、登录态和设计令牌，不要复制三套基础设施。
+管理后台按「登录 → 仪表盘 → 第一个 CRUD → 筛选/导入导出」推进；PC 站点按「首页 → 内容页 → 转化页」推进。三种形态共用请求层、登录态和基础组件；H5/PC 共用消费者令牌，管理台使用 `.admin-theme` 后台令牌，不要复制三套基础设施。
 
 ### 5. 验收与交接
 
@@ -160,9 +160,9 @@ git diff --stat pnpm-lock.yaml
 - Vue 3.5 + Vite 8 + vue-router 5（hash）+ Pinia 4（选项式）+ Tailwind CSS 4 + daisyUI 5 + axios + big.js。
 - Node 20.19+ / 22.12+；pnpm 9.15.9；`.npmrc` 开启 `engine-strict=true`。
 - 只用 pnpm；禁止 npm / yarn / bun；禁止删除或重建 `pnpm-lock.yaml`。
-- 颜色只用语义类；新增色值登记项目的 `src/assets/styles/colors.css`。
+- 颜色只用语义类；H5/PC 新增色值登记 `src/assets/styles/colors.css`，管理台登记 `src/assets/styles/admin.css`。
 - H5：`max-w-md` 居中、4 tab 底栏、二级页 `meta.hideBottomNav` + `meta.backTo`。
-- 管理台：`AdminLayout` 侧边栏 + 顶栏 + `max-w-7xl`；列表用表格，操作区右对齐。
+- 管理台：`AdminLayout` 根节点 `admin-theme`，石墨侧栏 + 顶栏 + `max-w-7xl`；列表用 `.panel` + `.table`，操作区右对齐；KPI 只放业务指标。
 - PC：`PcLayout` 顶部导航 + `max-w-7xl` 宽内容区；移动端仍可用。
 - 三种形态通过路由组选择布局；`meta.hideBottomNav` 隐藏 H5 底栏。
 - 异步页面用骨架屏 + `swap` 过渡；图片用渐变占位 + 500ms 淡入 + 失败兜底。
@@ -194,8 +194,8 @@ git diff --stat pnpm-lock.yaml
 ### references（按需加载）
 
 - `references/architecture.md`：技术栈、目录、启动顺序、请求层、登录态、路由、状态、反模式。
-- `references/ui-system.md`：品牌色、语义色、字体、布局、动效、图片加载、空/错/加载态。
-- `references/admin-and-pc.md`：管理后台 / PC 布局、路由组、表格与表单模式、响应式检查。
+- `references/ui-system.md`：H5 / PC 消费者品牌色、语义色、字体、布局、动效、图片加载、空/错/加载态。
+- `references/admin-and-pc.md`：管理后台独立主题（石墨侧栏 + 冷白 + 深湖蓝）、后台布局、路由组、表格/表单/状态标签、响应式检查。
 - `references/components.md`：通用组件清单、props/events、动态返回、分页、日期选择、业务组件模式。
 - `references/patterns.md`：本地优先购物车、结算模式、再下一单与库存、登录前初始化、旧路径映射、富文本清洗、金额/日期、分页竞态。
 - `references/backend-contract.md`：契约调研顺序、fuint/RuoYi 响应形态、登录流程、分页归一化、已知坑记录。
@@ -235,5 +235,6 @@ git diff --stat pnpm-lock.yaml
 - 用浮点数算金额；
 - 把 mock、demo 登录、调试按钮带进生产构建；
 - 把 H5 的 `max-w-md`、底部导航和移动端密度硬套到管理台或 PC；
-- 为管理台 / PC 新建第二套颜色、字体或基础组件；
-- 管理台里直接堆裸表格和裸表单，不复用分页、Toast、Confirm。
+- 把 H5 的湖水蓝 / 薄荷绿硬套到管理台；后台使用 `.admin-theme` 令牌；
+- 给后台加渐变 Logo、糖果色大色块、彩色投影或大圆角重投影；
+- 管理台里直接堆裸表格和裸表单，不复用 `.panel`、`.table`、分页、Toast、Confirm。

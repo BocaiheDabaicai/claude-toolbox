@@ -26,7 +26,7 @@ claude-toolbox/
 - `fuintMemberH5`：Vue2 + uni-app 会员端迁移到 Vue3 H5（25 个页面、完整交易链路）。
 - `salebate-vue3`：Vue3 + Vite 返利下单 H5（架构参考基线）。
 
-覆盖：技术栈、目录架构、请求层与登录态、路由、Pinia、Tailwind + daisyUI UI 系统、品牌色、字体、动效、通用组件、通用函数、H5 / 管理后台 / PC 三种布局、后台表格与表单模式、本地优先购物车、SKU、预订单、库存校验、迁移流程、质量门禁。
+覆盖：技术栈、目录架构、请求层与登录态、路由、Pinia、Tailwind + daisyUI UI 系统、H5/PC 品牌色、管理后台独立主题（石墨侧栏 + 冷白内容 + 深湖蓝）、字体、动效、通用组件、通用函数、H5 / 管理后台 / PC 三种布局、后台表格与表单模式、本地优先购物车、SKU、预订单、库存校验、迁移流程、质量门禁。
 
 使用方式见 `skills/frontend-h5-project/README.md` 与 `SKILL.md`。
 
@@ -36,7 +36,7 @@ Nuxt 4 全栈业务应用：页面、API、PostgreSQL 直连、Cookie 会话、D
 
 - 适合管理后台、内部系统、MVP；
 - 自带登录、仪表盘、客户 CRUD、Zod 校验、健康检查；
-- 品牌色与 `frontend-h5-project` 保持一致；
+- 管理台使用与 `frontend-h5-project` 相同的后台设计系统：石墨侧栏 + 冷白内容 + 深湖蓝主色；H5/PC 消费者品牌色保持不变；
 - 每个项目自带 `ops/project.toml`，由 `python-service-ops` 统一启停。
 
 使用方式见 `skills/nuxt-fullstack/README.md` 与 `SKILL.md`。

@@ -13,7 +13,7 @@ export default defineNuxtConfig({
       title: '__PROJECT_TITLE__',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#4E96D6' },
+        { name: 'theme-color', content: '#1F5FA8' },
       ],
     },
     pageTransition: { name: 'page', mode: 'out-in' },

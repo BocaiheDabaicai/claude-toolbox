@@ -43,8 +43,12 @@ ops/      project.toml，供 opsctl 统一启停
 
 ## UI 约定
 
+- 后台主题为「石墨侧栏 × 冷白内容 × 深湖蓝」；颜色令牌在 `app/assets/css/colors.css`，结构样式在 `app/assets/css/admin.css`，布局根节点使用 `.admin-theme`。
 - 颜色只用 `app/assets/css/main.css` 映射的语义类（`bg-primary`、`text-base-content/60` 等）。
-- 新增色值先登记 `app/assets/css/colors.css`，禁止在组件里写裸色值。
+- 新增色值先登记 `app/assets/css/colors.css`，禁止在组件里写裸色值、渐变或彩色投影。
+- 卡片、表格容器、设置分区统一使用 `.panel`；禁止 `rounded-2xl` + `shadow-xl` 的组合。
+- 状态标签使用 `badge` 语义类（`badge-success` 等），外观由 `admin.css` 统一为浅底深字。
+- 导航在 `app/utils/navigation.ts` 登记，侧栏与顶栏面包屑共用；侧栏只放单行标签，不加第二行描述。
 - 页面统一使用 `PageHeader`、`EmptyState` 与 daisyUI `card` / `table` / `modal` / `btn` 等组件类。
 - 管理台以桌面优先、移动端可用为目标；H5 会员端另用 `frontend-h5-project`。
 - 加载态使用 skeleton；空态使用 `EmptyState`；错误态显示可读信息。

@@ -151,7 +151,7 @@ async function remove(customer: Customer) {
       </button>
     </div>
 
-    <div class="overflow-hidden rounded-2xl border border-base-300 bg-base-100">
+    <div class="panel overflow-hidden">
       <div v-if="pending" class="space-y-3 p-5">
         <div v-for="i in 6" :key="i" class="skeleton h-10 w-full" />
       </div>
@@ -197,7 +197,7 @@ async function remove(customer: Customer) {
                   {{ customer.status === 'active' ? '正常' : '停用' }}
                 </span>
               </td>
-              <td class="text-sm text-base-content/50">
+              <td class="text-[13px] text-base-content/60">
                 {{ formatDateTime(customer.createdAt) }}
               </td>
               <td class="text-right">
@@ -222,7 +222,7 @@ async function remove(customer: Customer) {
       </div>
 
       <div class="flex items-center justify-between border-t border-base-300 px-4 py-3 text-sm">
-        <span class="text-base-content/50">共 {{ total }} 条</span>
+        <span class="text-base-content/60">共 {{ total }} 条</span>
         <div class="join">
           <button
             class="btn btn-sm join-item"
@@ -247,7 +247,7 @@ async function remove(customer: Customer) {
 
     <div v-if="modalOpen" class="modal modal-open">
       <div class="modal-box max-w-2xl">
-        <h3 class="text-lg font-semibold">
+        <h3 class="text-base font-semibold">
           {{ editing ? '编辑客户' : '新建客户' }}
         </h3>
 
@@ -310,7 +310,7 @@ async function remove(customer: Customer) {
 
           <p
             v-if="formError"
-            class="rounded-xl bg-error-soft px-3 py-2 text-sm text-error sm:col-span-2"
+            class="rounded-md bg-error-soft px-3 py-2 text-[13px] text-error sm:col-span-2"
           >
             {{ formError }}
           </p>

@@ -40,7 +40,8 @@ src/
 ├─ api/            # 按业务模块拆文件：auth / user / goods / cart / order ...
 ├─ assets/
 │  └─ styles/
-│     └─ colors.css     # 品牌色唯一来源
+│     ├─ colors.css     # H5 / PC 消费者品牌色
+│     └─ admin.css      # 管理后台主题（石墨侧栏 + 冷白 + 深湖蓝）
 ├─ components/     # 通用组件：PageHeader / BottomNav / AdminPageHeader / ToastHost / ConfirmDialog ...
 ├─ layouts/        # DefaultLayout（H5）/ AdminLayout（后台）/ PcLayout（PC）
 ├─ router/

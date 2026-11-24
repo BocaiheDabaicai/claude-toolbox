@@ -7,15 +7,16 @@
 | 组件 | 作用 | 关键接口 |
 | --- | --- | --- |
 | `layouts/DefaultLayout.vue` | H5 `max-w-md` 页面容器 + 路由过渡 | 读取 `meta.hideBottomNav` / `meta.fullHeight` |
-| `layouts/AdminLayout.vue` | 管理台侧边栏 + 顶栏 + `max-w-7xl` | 内部导航数组、移动端抽屉、退出登录 |
+| `layouts/AdminLayout.vue` | 管理台石墨侧栏 + 顶栏 + `max-w-7xl` | 内部导航数组、移动端抽屉、退出登录 |
 | `layouts/PcLayout.vue` | PC 顶部导航 + 宽内容区 + 页脚 | 顶部导航数组 |
 | `PageHeader.vue` | H5 二级页顶栏：返回 + 标题 + 首页 | `title`、`showHome`、`meta.backTo` |
 | `AdminPageHeader.vue` | 后台页头：标题 + 描述 + 操作区 | `title`、`description`、`#actions` |
+| `AdminNavIcon.vue` | 后台导航线性图标 | `name` |
 | `BottomNav.vue` | 4 tab 悬浮底栏 | `activeName`、`badges` |
 | `ToastHost.vue` | 全局轻提示挂载点 | 配合 `utils/toast.js` |
 | `ConfirmDialog.vue` | 全局二次确认挂载点 | 配合 `utils/confirm.js` |
 | `SkeletonBlock.vue` | 骨架块 | `rounded`、`tone` |
-| `PaginationBar.vue` | 传统分页条 | `total`、`pageNum`、`pageSize`、`page-change`、`size-change` |
+| `PaginationBar.vue` | 传统分页条；管理台自动收敛为小圆角 | `total`、`pageNum`、`pageSize`、`page-change`、`size-change` |
 | `LoadMoreSentinel.vue` | 触底无限加载 | `disabled`、`@load` |
 | `DatePickerDialog.vue` | 日期/年月/范围选择 | `open`、`mode`、`modelValue`、`minDate`、`maxDate`、`showPresets` |
 

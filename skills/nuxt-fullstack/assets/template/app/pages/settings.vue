@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { USER_ROLE_LABELS } from '~~/shared/types/auth'
+
 const config = useRuntimeConfig()
 const { user } = useAuth()
+const roleLabel = computed(() =>
+  user.value ? USER_ROLE_LABELS[user.value.role] : '-',
+)
 useHead({ title: '设置' })
 </script>
 
@@ -9,37 +14,37 @@ useHead({ title: '设置' })
     <PageHeader title="设置" description="账号、环境与运维信息" />
 
     <div class="grid gap-4 lg:grid-cols-2">
-      <section class="rounded-2xl border border-base-300 bg-base-100 p-5">
+      <section class="panel p-5">
         <h2 class="text-sm font-semibold">当前账号</h2>
         <dl class="mt-4 space-y-3 text-sm">
           <div class="flex justify-between gap-4">
-            <dt class="text-base-content/50">姓名</dt>
+            <dt class="text-base-content/60">姓名</dt>
             <dd class="font-medium">{{ user?.name }}</dd>
           </div>
           <div class="flex justify-between gap-4">
-            <dt class="text-base-content/50">邮箱</dt>
+            <dt class="text-base-content/60">邮箱</dt>
             <dd class="font-medium">{{ user?.email }}</dd>
           </div>
           <div class="flex justify-between gap-4">
-            <dt class="text-base-content/50">角色</dt>
-            <dd class="font-medium">{{ user?.role }}</dd>
+            <dt class="text-base-content/60">角色</dt>
+            <dd class="font-medium">{{ roleLabel }}</dd>
           </div>
         </dl>
       </section>
 
-      <section class="rounded-2xl border border-base-300 bg-base-100 p-5">
+      <section class="panel p-5">
         <h2 class="text-sm font-semibold">运行信息</h2>
         <dl class="mt-4 space-y-3 text-sm">
           <div class="flex justify-between gap-4">
-            <dt class="text-base-content/50">应用</dt>
+            <dt class="text-base-content/60">应用</dt>
             <dd class="font-medium">{{ config.public.appName }}</dd>
           </div>
           <div class="flex justify-between gap-4">
-            <dt class="text-base-content/50">数据库</dt>
+            <dt class="text-base-content/60">数据库</dt>
             <dd class="font-medium">PostgreSQL</dd>
           </div>
           <div class="flex justify-between gap-4">
-            <dt class="text-base-content/50">健康检查</dt>
+            <dt class="text-base-content/60">健康检查</dt>
             <dd>
               <NuxtLink
                 to="/api/healthz"
@@ -53,7 +58,7 @@ useHead({ title: '设置' })
         </dl>
       </section>
 
-      <section class="rounded-2xl border border-base-300 bg-base-100 p-5 lg:col-span-2">
+      <section class="panel p-5 lg:col-span-2">
         <h2 class="text-sm font-semibold">运维</h2>
         <p class="mt-2 text-sm leading-relaxed text-base-content/60">
           本项目自带

@@ -1,7 +1,7 @@
 ---
 name: nuxt-fullstack
-description: 当用户要求“新建 Nuxt 全栈业务应用”“Nuxt 直连 PostgreSQL”“快速做管理后台/内部系统”“生成 Nuxt + Drizzle 项目骨架”“按 H5 Skill 的风格做管理台”，或需要一个可复用的 Nuxt 4 + PostgreSQL + Cookie 会话 + Tailwind/daisyUI 业务模板时使用。覆盖服务端/客户端边界、Drizzle 迁移、认证、CRUD 模式、健康检查、opsctl 运维清单和质量门禁；不覆盖多节点部署、微服务、复杂工作流引擎。
-version: 0.1.0
+description: 当用户要求“新建 Nuxt 全栈业务应用”“Nuxt 直连 PostgreSQL”“快速做管理后台/内部系统”“生成 Nuxt + Drizzle 项目骨架”“做一套区别于 H5 的专业后台 UI”，或需要一个可复用的 Nuxt 4 + PostgreSQL + Cookie 会话 + Tailwind/daisyUI 业务模板时使用。覆盖服务端/客户端边界、Drizzle 迁移、认证、CRUD 模式、健康检查、opsctl 运维清单和质量门禁；不覆盖多节点部署、微服务、复杂工作流引擎。
+version: 0.2.0
 ---
 
 # Nuxt 全栈业务应用
@@ -15,7 +15,8 @@ version: 0.1.0
 - 新建 Nuxt 4 业务应用，需要直接连接 PostgreSQL；
 - 快速做管理后台、内部工具、MVP；
 - 需要 Cookie 会话、Drizzle 迁移、统一 API 响应和 CRUD 骨架；
-- 希望与现有 `frontend-h5-project` 保持同一套品牌色和组件风格；
+- 需要一套与会员端 H5 区分开的后台视觉：石墨侧栏、冷白内容区、深湖蓝主色；
+- 需要统一的表格、表单、状态标签和空态模式；
 - 需要一个自带 `ops/project.toml`、能被 `opsctl` 统一启停的项目。
 
 ## 何时不用
@@ -136,7 +137,7 @@ opsctl status my-admin --root /srv/projects
 - 所有业务接口返回 `{ code, message, data }`；列表统一 `data: { rows, total, page, pageSize }`。
 - 所有写接口用 Zod 校验，并做同源检查（`requireSameOrigin`）。
 - 认证使用 HttpOnly Cookie 会话，不把 token 放 localStorage。
-- 颜色只用语义类；新增色值登记 `app/assets/css/colors.css`。
+- 颜色只用语义类；后台令牌登记 `app/assets/css/colors.css`，结构样式放 `app/assets/css/admin.css`；禁止渐变、糖果色和组件内裸色值。
 - 迁移由 drizzle-kit 生成；已应用的迁移不改，只追加。
 - 每个项目必须提供 `ops/project.toml`、`/api/healthz`、`/api/readyz`。
 - 只用 pnpm 9；禁止 npm/yarn/bun，禁止删除或重写 `pnpm-lock.yaml`。
@@ -161,7 +162,7 @@ opsctl status my-admin --root /srv/projects
 - `references/architecture.md`：Nuxt 4 目录、SSR、API 边界、响应结构、错误处理。
 - `references/database.md`：PostgreSQL 约定、Drizzle schema/迁移、索引、软删、连接池。
 - `references/auth.md`：Cookie 会话、scrypt、同源检查、角色与安全清单。
-- `references/ui.md`：设计令牌、后台布局、表格/表单/弹窗、空态/骨架、与 H5 的一致性。
+- `references/ui.md`：后台设计令牌、石墨侧栏、分组导航、面板/表格/表单/状态标签、空态与响应式规范。
 - `references/patterns.md`：垂直切片、列表搜索分页、CRUD、软删、错误处理。
 - `references/ops.md`：project.toml、迁移 oneshot、构建/启动、systemd、部署顺序。
 - `references/quality.md`：检查命令、测试策略、回归与安全清单。
@@ -177,7 +178,7 @@ opsctl status my-admin --root /srv/projects
 
 ## 与其他 Skill 的关系
 
-- `frontend-h5-project`：移动端 H5；共享品牌色、语义色和基础交互，不共享布局假设。
+- `frontend-h5-project`：移动端 H5；共享 Tailwind/daisyUI 技术方式与动效，不共享后台配色和布局假设。
 - `python-service-ops`：读取本项目的 `ops/project.toml`，统一启停与状态。
 - 后续 `fastapi-service`：前后端分离项目使用；Nuxt 项目不引入 FastAPI。
 
