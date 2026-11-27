@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-20',
   devtools: { enabled: false },
+  modules: ['@pinia/nuxt'],
   css: ['@fontsource-variable/noto-sans-sc', '~/assets/css/main.css'],
   vite: {
     plugins: [tailwindcss()],

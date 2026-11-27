@@ -1,6 +1,6 @@
 # nuxt-fullstack
 
-Nuxt 4 全栈业务应用 Skill：页面、API、PostgreSQL 直连、Cookie 会话、Drizzle 迁移、统一 API 响应和 `opsctl` 运维清单。
+Nuxt 4 全栈业务应用 Skill：页面、API、PostgreSQL 直连、Cookie 会话、Pinia 状态、Drizzle 迁移、统一 API 响应和 `opsctl` 运维清单。
 
 ## 前置要求
 
@@ -47,6 +47,7 @@ opsctl status my-admin --root /srv/projects
 ## 模板包含
 
 - 登录页 + HttpOnly Cookie 会话；
+- Pinia 登录态（`app/stores/auth.ts`）+ `useAuth()` 兼容层，与 Vue3 H5 模板一致；
 - 仪表盘；
 - 客户列表 / 搜索 / 分页 / 新建 / 编辑 / 软删；
 - Drizzle schema + 初始迁移 + seed；
@@ -75,3 +76,4 @@ nuxt-fullstack/
 | --- | --- | --- |
 | 0.1.0 | 2026-11-20 | 初始版本：Nuxt 4.5.2 全栈模板、Drizzle 迁移、Cookie 会话、客户 CRUD、ops manifest、构建与类型检查通过 |
 | 0.2.0 | 2026-11-24 | 后台 UI 改版：石墨侧栏 + 冷白内容 + 深湖蓝主色；分组单行导航、面包屑、面板/表格/状态标签密度规范；新增 `admin.css`、`AppNavIcon`、`navigation.ts` |
+| 0.3.0 | 2026-11-27 | 状态管理统一 Pinia：新增 `@pinia/nuxt` + `pinia`、`app/stores/auth.ts`、`useAuth()` 兼容层；模板、AGENTS、架构/认证/模式文档同步；与 `frontend-h5-project` 的 Pinia 约定对齐 |

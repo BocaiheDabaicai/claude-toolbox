@@ -32,10 +32,11 @@ claude-toolbox/
 
 ### nuxt-fullstack
 
-Nuxt 4 全栈业务应用：页面、API、PostgreSQL 直连、Cookie 会话、Drizzle 迁移、统一 API 响应和 `opsctl` 运维清单。
+Nuxt 4 全栈业务应用：页面、API、PostgreSQL 直连、Cookie 会话、Pinia 状态、Drizzle 迁移、统一 API 响应和 `opsctl` 运维清单。
 
 - 适合管理后台、内部系统、MVP；
-- 自带登录、仪表盘、客户 CRUD、Zod 校验、健康检查；
+- 自带登录（Pinia 登录态）、仪表盘、客户 CRUD、Zod 校验、健康检查；
+- 状态管理与 `frontend-h5-project` 一致：跨页面共享状态用 Pinia（选项式），服务端数据走 `useApiFetch`/`useAsyncData`；
 - 管理台使用与 `frontend-h5-project` 相同的后台设计系统：石墨侧栏 + 冷白内容 + 深湖蓝主色；H5/PC 消费者品牌色保持不变；
 - 每个项目自带 `ops/project.toml`，由 `python-service-ops` 统一启停。
 

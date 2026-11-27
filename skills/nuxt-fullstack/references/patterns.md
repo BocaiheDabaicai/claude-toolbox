@@ -96,6 +96,50 @@ catch (err: unknown) {
 - `useRequestFetch()` 转发 Cookie；
 - 页面组件不直接读 Cookie。
 
+## 6.1 Pinia 状态
+
+跨页面共享状态统一用 Pinia，选项式写法（与 `frontend-h5-project` 一致）：
+
+```ts
+// app/stores/auth.ts
+import { defineStore } from 'pinia'
+
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    user: null as SessionUser | null,
+    initialized: false,
+    loading: false,
+  }),
+  actions: {
+    async fetchUser(force = false) {
+      if (this.initialized && !force) return this.user
+      // SSR 用 useRequestFetch()，客户端用 $fetch
+    },
+  },
+})
+```
+
+页面保留兼容层，避免全站改 `user.value`：
+
+```ts
+// app/composables/useAuth.ts
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '~/stores/auth'
+
+export function useAuth() {
+  const store = useAuthStore()
+  const { user, initialized, loading } = storeToRefs(store)
+  return { user, initialized, loading, fetchUser: store.fetchUser }
+}
+```
+
+规则：
+
+- Pinia 只放跨页面共享状态（登录态、全局筛选、草稿）；
+- 服务端列表/详情数据用 `useApiFetch`，不要再复制一份进 store；
+- 页面局部状态用 `ref` / `reactive`；
+- 不要新增全局 `useState` 作为状态管理。
+
 ## 7. Seed
 
 - 管理员账号从环境变量读取，不硬编码；

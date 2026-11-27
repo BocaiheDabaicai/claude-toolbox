@@ -1,6 +1,6 @@
 # __PROJECT_TITLE__
 
-Nuxt 4 全栈业务应用模板：页面、API、PostgreSQL 直连、Cookie 会话、Drizzle 迁移和 `opsctl` 运维清单。
+Nuxt 4 全栈业务应用模板：页面、API、PostgreSQL 直连、Cookie 会话、Pinia 状态、Drizzle 迁移和 `opsctl` 运维清单。
 
 ## 前置要求
 
@@ -48,10 +48,11 @@ pnpm db:seed             # 管理员 + 示例客户
 ## 目录
 
 ```
-app/                      # 页面、布局、组件、composable、样式
+app/                      # 页面、布局、组件、composable、Pinia store、样式
 ├─ assets/css/            # 设计令牌与全局样式
 ├─ components/            # AppSidebar / AppTopbar / AppNavIcon / PageHeader / EmptyState
-├─ composables/useAuth.ts # 客户端会话状态
+├─ composables/useAuth.ts # useAuth() 兼容层
+├─ stores/auth.ts         # Pinia 登录态
 ├─ layouts/               # default（后台）/ auth（登录）
 ├─ middleware/            # 全局登录守卫
 ├─ pages/                 # 登录、仪表盘、客户、设置

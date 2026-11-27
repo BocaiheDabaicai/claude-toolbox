@@ -195,6 +195,7 @@ actions:
 ## 9. 状态管理
 
 - 统一 Pinia 选项式写法，便于阅读和迁移。
+- Nuxt 全栈模板（`nuxt-fullstack`）同样使用 Pinia + `@pinia/nuxt`，两端共享状态写法保持一致；Nuxt 侧服务端数据仍走 `useApiFetch`/`useAsyncData`，不放进 store。
 - 只把跨页/跨刷新需要的内容放 store；列表、分页、表单留在页面内。
 - 持久化策略写清楚：token 持久化；userInfo 不持久化；config 的 merchantNo/storeId 持久化。
 - 购物车、筛选等高频状态如需本地优先，建独立 store，不要在页面里直接读写 localStorage。

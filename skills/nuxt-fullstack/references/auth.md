@@ -59,7 +59,7 @@ GET /api/**（受保护）
 - 已登录访问 `/login` → `/`；
 - SSR 时 `useRequestFetch()` 自动转发 Cookie；
 - 页面里的受保护请求统一用 `useApiFetch()`（内部在服务端使用 `useRequestFetch`），不要直接用裸 `useFetch`；
-- 用户状态放 `useState`，避免每次导航重复请求。
+- 用户状态放 Pinia store（`app/stores/auth.ts`），`initialized` 标记避免每次导航重复请求；页面通过 `useAuth()` 兼容层访问。
 
 ## 6. CSRF
 

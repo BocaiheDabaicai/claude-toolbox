@@ -41,6 +41,13 @@ ops/      project.toml，供 opsctl 统一启停
 - 认证使用 HttpOnly Cookie 会话，不把 token 放 localStorage。
 - 金额相关功能后续使用 big.js / decimal，不用浮点数直接计算。
 
+## 状态管理
+
+- 跨页面共享的客户端状态统一用 Pinia（`app/stores/*.ts`，选项式写法），与 `frontend-h5-project` 保持一致。
+- 登录态在 `app/stores/auth.ts`；页面通过 `useAuth()` 兼容层访问，不要直接改 store state。
+- 服务端数据用 `useApiFetch`（`useAsyncData` + `$fetch`/`useRequestFetch`），不要塞进 Pinia。
+- 页面局部状态用 `ref` / `reactive`；不要新增全局 `useState`。
+
 ## UI 约定
 
 - 后台主题为「石墨侧栏 × 冷白内容 × 深湖蓝」；颜色令牌在 `app/assets/css/colors.css`，结构样式在 `app/assets/css/admin.css`，布局根节点使用 `.admin-theme`。

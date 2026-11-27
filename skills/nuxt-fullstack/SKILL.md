@@ -1,7 +1,7 @@
 ---
 name: nuxt-fullstack
-description: 当用户要求“新建 Nuxt 全栈业务应用”“Nuxt 直连 PostgreSQL”“快速做管理后台/内部系统”“生成 Nuxt + Drizzle 项目骨架”“做一套区别于 H5 的专业后台 UI”，或需要一个可复用的 Nuxt 4 + PostgreSQL + Cookie 会话 + Tailwind/daisyUI 业务模板时使用。覆盖服务端/客户端边界、Drizzle 迁移、认证、CRUD 模式、健康检查、opsctl 运维清单和质量门禁；不覆盖多节点部署、微服务、复杂工作流引擎。
-version: 0.2.0
+description: 当用户要求“新建 Nuxt 全栈业务应用”“Nuxt 直连 PostgreSQL”“快速做管理后台/内部系统”“生成 Nuxt + Drizzle 项目骨架”“做一套区别于 H5 的专业后台 UI”，或需要一个可复用的 Nuxt 4 + PostgreSQL + Cookie 会话 + Pinia 状态 + Tailwind/daisyUI 业务模板时使用。覆盖服务端/客户端边界、Drizzle 迁移、认证、Pinia、CRUD 模式、健康检查、opsctl 运维清单和质量门禁；不覆盖多节点部署、微服务、复杂工作流引擎。
+version: 0.3.0
 ---
 
 # Nuxt 全栈业务应用
@@ -34,6 +34,7 @@ version: 0.2.0
 | 运行时 | Node.js | 22.19+ / 24.11+ / 26+ |
 | 包管理 | pnpm | 9.15.9 |
 | 数据库 | PostgreSQL | 当前稳定版 |
+| 状态管理 | Pinia + @pinia/nuxt | 4.1.0 / 1.0.2 |
 | ORM / 迁移 | Drizzle ORM / drizzle-kit | 0.45.4 / 0.31.11 |
 | 样式 | Tailwind CSS + daisyUI | 4.3.5 / 5.7.28 |
 | 校验 | Zod | 4.6.7 |
@@ -44,7 +45,7 @@ version: 0.2.0
 ## 架构
 
 ```
-app/          页面、布局、组件、composable、样式（客户端 + SSR）
+app/          页面、布局、组件、composable、Pinia store、样式（客户端 + SSR）
 server/       API、数据库、会话、密码、校验（仅服务端）
 shared/       Zod schema、API/业务类型（客户端与服务端共享）
 ops/          project.toml，供 opsctl 统一启停
@@ -137,6 +138,8 @@ opsctl status my-admin --root /srv/projects
 - 所有业务接口返回 `{ code, message, data }`；列表统一 `data: { rows, total, page, pageSize }`。
 - 所有写接口用 Zod 校验，并做同源检查（`requireSameOrigin`）。
 - 认证使用 HttpOnly Cookie 会话，不把 token 放 localStorage。
+- 跨页面共享状态统一用 Pinia（`app/stores/*.ts`，选项式写法），与 `frontend-h5-project` 保持一致；登录态在 `app/stores/auth.ts`。
+- 服务端数据用 `useApiFetch`（`useAsyncData`），页面局部状态用 `ref` / `reactive`；不要新增全局 `useState`。
 - 颜色只用语义类；后台令牌登记 `app/assets/css/colors.css`，结构样式放 `app/assets/css/admin.css`；禁止渐变、糖果色和组件内裸色值。
 - 迁移由 drizzle-kit 生成；已应用的迁移不改，只追加。
 - 每个项目必须提供 `ops/project.toml`、`/api/healthz`、`/api/readyz`。
@@ -159,11 +162,11 @@ opsctl status my-admin --root /srv/projects
 
 ### references（按需加载）
 
-- `references/architecture.md`：Nuxt 4 目录、SSR、API 边界、响应结构、错误处理。
+- `references/architecture.md`：Nuxt 4 目录、SSR、Pinia 状态、API 边界、响应结构、错误处理。
 - `references/database.md`：PostgreSQL 约定、Drizzle schema/迁移、索引、软删、连接池。
-- `references/auth.md`：Cookie 会话、scrypt、同源检查、角色与安全清单。
+- `references/auth.md`：Cookie 会话、scrypt、Pinia 登录态、同源检查、角色与安全清单。
 - `references/ui.md`：后台设计令牌、石墨侧栏、分组导航、面板/表格/表单/状态标签、空态与响应式规范。
-- `references/patterns.md`：垂直切片、列表搜索分页、CRUD、软删、错误处理。
+- `references/patterns.md`：垂直切片、列表搜索分页、Pinia 状态、CRUD、软删、错误处理。
 - `references/ops.md`：project.toml、迁移 oneshot、构建/启动、systemd、部署顺序。
 - `references/quality.md`：检查命令、测试策略、回归与安全清单。
 

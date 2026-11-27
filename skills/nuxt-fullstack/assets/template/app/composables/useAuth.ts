@@ -1,48 +1,24 @@
-import type { ApiResponse } from '~~/shared/types/api'
-import type { SessionUser } from '~~/shared/types/auth'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '~/stores/auth'
 
+/**
+ * 兼容层：页面继续使用 useAuth()，底层登录态统一由 Pinia 管理。
+ * 返回 ref 以保持原有 user.value / initialized.value 用法。
+ */
 export function useAuth() {
-  const user = useState<SessionUser | null>('auth.user', () => null)
-  const initialized = useState<boolean>('auth.initialized', () => false)
-  const loading = useState<boolean>('auth.loading', () => false)
+  const store = useAuthStore()
+  const { user, initialized, loading } = storeToRefs(store)
 
-  async function fetchUser(force = false) {
-    if (initialized.value && !force) return user.value
-
-    loading.value = true
-    try {
-      const requestFetch = import.meta.server ? useRequestFetch() : $fetch
-      const response = await requestFetch<ApiResponse<{ user: SessionUser }>>(
-        '/api/auth/me',
-      )
-      user.value = response.data.user
-    } catch {
-      user.value = null
-    } finally {
-      initialized.value = true
-      loading.value = false
-    }
-    return user.value
+  function fetchUser(force = false) {
+    return store.fetchUser(force)
   }
 
-  async function login(email: string, password: string) {
-    const response = await $fetch<ApiResponse<{ user: SessionUser }>>(
-      '/api/auth/login',
-      {
-        method: 'POST',
-        body: { email, password },
-      },
-    )
-    user.value = response.data.user
-    initialized.value = true
-    return user.value
+  function login(email: string, password: string) {
+    return store.login(email, password)
   }
 
-  async function logout() {
-    await $fetch('/api/auth/logout', { method: 'POST' }).catch(() => {})
-    user.value = null
-    initialized.value = true
-    await navigateTo('/login')
+  function logout() {
+    return store.logout()
   }
 
   return { user, initialized, loading, fetchUser, login, logout }

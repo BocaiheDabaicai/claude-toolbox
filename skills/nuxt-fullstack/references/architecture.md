@@ -3,7 +3,7 @@
 ## 1. 目录边界
 
 ```
-app/          客户端 + SSR：页面、布局、组件、composable、样式
+app/          客户端 + SSR：页面、布局、组件、composable、Pinia store、样式
 server/       仅服务端：API、数据库、会话、密码、校验
 shared/       共享：Zod schema、API 类型、业务类型
 public/       静态资源
@@ -76,7 +76,20 @@ PostgreSQL
 - `app/middleware/auth.global.ts` 在页面层做 SSR 重定向；
 - `useAuth().fetchUser()` 在 SSR 时用 `useRequestFetch()` 转发 Cookie，客户端用 `$fetch`；
 - 页面请求受保护接口统一用 `useApiFetch()`：服务端用 `useRequestFetch()` 转发 Cookie，客户端用 `$fetch`；同一 URL 有多个调用点时传唯一 `key`；
-- 用户状态放在 `useState('auth.user')`，服务端渲染结果会序列化到客户端。
+- 用户状态放在 Pinia store（`app/stores/auth.ts`），SSR 时由 Nuxt/Pinia 自动序列化并 hydration；页面通过 `useAuth()` 兼容层访问，保持 `user.value` 用法。
+
+### 4.1 状态管理
+
+| 状态类型 | 方案 |
+|---|---|
+| 跨页面共享（登录态、全局筛选、草稿） | Pinia（`app/stores/*.ts`，选项式写法） |
+| 页面局部 UI 状态 | `ref` / `reactive` |
+| 服务端数据 | `useApiFetch`（`useAsyncData`），不进 store |
+
+- Nuxt 项目同样使用 Pinia，与 `frontend-h5-project` 的 Vue3 模板保持一致；
+- `@pinia/nuxt` 自动注册 Pinia 并支持 SSR；
+- store 目录默认是 `app/stores/`，store 文件按业务域命名；
+- 不要把服务端列表数据复制进 store，避免双份状态和失效问题。
 
 ## 5. 服务端/客户端边界
 
