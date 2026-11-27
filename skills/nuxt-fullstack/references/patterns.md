@@ -136,6 +136,9 @@ export function useAuth() {
 规则：
 
 - Pinia 只放跨页面共享状态（登录态、全局筛选、草稿）；
+- 列表页筛选/分页需要跨路由保留时，把筛选字段（type/status/owner/page/pageSize 等）放独立 store（如 `customerQuery`、`dashboard`），composable 只负责取数和 watcher；
+- 登录/退出时对相关 store 调 `$reset()`，避免上一个身份的筛选残留；
+- 需要跨刷新保留时才加持久化插件，不要默认写 localStorage；
 - 服务端列表/详情数据用 `useApiFetch`，不要再复制一份进 store；
 - 页面局部状态用 `ref` / `reactive`；
 - 不要新增全局 `useState` 作为状态管理。
